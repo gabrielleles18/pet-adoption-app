@@ -10,10 +10,13 @@ export default {
         tabIconDefault: '#ccc',
         tabIconSelected: tintColorLight,
         primary: '#6852A5',
-        primaryLight: '#9B8ACA'
+        primaryLight: '#9B8ACA',
+        primaryLightLight: '#DDD6F77F',
+        segundary: '#F4A325',
+        segundaryLight: '#FCC06428',
     },
     dark: {
-        text: '#fff',
+        text: '#3C3C43',
         background: '#000',
         tint: tintColorDark,
         tabIconDefault: '#ccc',
