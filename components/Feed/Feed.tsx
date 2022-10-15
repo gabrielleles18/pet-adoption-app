@@ -5,16 +5,20 @@ import Colors from "../../constants/Colors";
 import {Ionicons} from '@expo/vector-icons';
 import {Text} from '../Themed';
 
-interface ButtonIconProps {
+interface FeedProps {
     name: string;
     breed: string;
     sex: string;
     favorite?: boolean;
     imageUri?: string;
-    rest?: any;
 }
 
-export default function Feed({sex, breed, name, favorite, imageUri, ...rest}: ButtonIconProps) {
+interface DataProps {
+    data: FeedProps,
+    rest?: any
+}
+
+export default function Feed({data: {sex, breed, name, favorite, imageUri}, ...rest}: DataProps) {
     favorite = true;
     imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png'
 

@@ -16,9 +16,8 @@ export default function App() {
     } else {
         return (
             <SafeAreaProvider>
-                <HomeScreen/>
-                {/*<Navigation colorScheme={colorScheme}/>*/}
-                {/*<StatusBar/>*/}
+                <Navigation colorScheme={colorScheme}/>
+                <StatusBar/>
             </SafeAreaProvider>
         );
     }

@@ -8,7 +8,6 @@ export const FeedContainer = styled.TouchableOpacity`
   border: 1px solid #EFEFF0;
   border-radius: 15px;
   overflow: hidden;
-  margin: 50px;
 `;
 
 export const ImageContainer = styled.View`

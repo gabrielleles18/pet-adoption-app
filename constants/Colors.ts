@@ -22,5 +22,6 @@ export default {
         tint: tintColorDark,
         tabIconDefault: '#ccc',
         tabIconSelected: tintColorDark,
+        primary: '#6852A5',
     },
 };

@@ -4,7 +4,6 @@ import Colors from "../../constants/Colors";
 
 export const CategoryContainer = styled.TouchableOpacity`
   width: 65px;
-  margin: 50px;
 `;
 
 export const ContainerImage = styled.View`
