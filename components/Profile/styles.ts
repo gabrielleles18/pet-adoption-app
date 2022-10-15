@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     },
     info: {
         flex: 1,
+        marginLeft: 10
     },
     owner: {
         fontSize: 10,

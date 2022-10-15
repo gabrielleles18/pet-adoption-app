@@ -1,6 +1,6 @@
 import {styles} from './styles';
-import {Image, Text, View} from "react-native";
-import { Fontisto } from '@expo/vector-icons';
+import {Image, Text, View, TouchableOpacity} from "react-native";
+import {Fontisto} from '@expo/vector-icons';
 
 interface ProfileProps {
     hiddenSocial?: boolean;
@@ -23,9 +23,9 @@ export default function Profile({hiddenSocial = false, hiddenName = false}: Prof
             )}
 
             {!hiddenSocial && (
-                <View style={styles.social}>
-                    <Fontisto name="whatsapp" size={16} color="#6852A5" />
-                </View>
+                <TouchableOpacity style={styles.social}>
+                    <Fontisto name="whatsapp" size={16} color="#6852A5"/>
+                </TouchableOpacity>
             )}
         </View>
     );
