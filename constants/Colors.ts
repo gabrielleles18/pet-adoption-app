@@ -14,6 +14,7 @@ export default {
         primaryLightLight: '#DDD6F77F',
         segundary: '#F4A325',
         segundaryLight: '#FCC06428',
+        green: '#D3F4E5'
     },
     dark: {
         text: '#3C3C43',
