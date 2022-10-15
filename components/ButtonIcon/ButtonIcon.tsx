@@ -8,6 +8,7 @@ interface ButtonIconProps {
 }
 
 export default function ButtonIcon({text, materialIcon, ...rest}: ButtonIconProps) {
+    // @ts-ignore
     return (
         <ButtonContainer {...rest}>
             {materialIcon && <MaterialIcons name={materialIcon} size={17} color="white"/>}
