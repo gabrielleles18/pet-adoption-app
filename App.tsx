@@ -7,6 +7,7 @@ import Navigation from './navigation';
 import WelcomeScreen from "./screens/WelcomeScreen";
 import HomeScreen from "./screens/HomeScreen";
 import PetScreen from "./screens/PetScreen";
+import RegistrationScreen from "./screens/RegistrationScreen";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -17,7 +18,8 @@ export default function App() {
     } else {
         return (
             <SafeAreaProvider>
-                <PetScreen/>
+                <RegistrationScreen/>
+                {/*<PetScreen/>*/}
                 {/*<Navigation colorScheme={colorScheme}/>*/}
                 {/*<StatusBar/>*/}
             </SafeAreaProvider>
