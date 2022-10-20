@@ -4,6 +4,7 @@ import {useState} from "react";
 import {SafeAreaView, Image, TouchableOpacity, TextInput, Text} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function RegistrationScreen() {
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
@@ -12,6 +13,8 @@ export default function RegistrationScreen() {
     const [sex, setSex] = useState('');
     const [breed, setBreed] = useState('');
     const [address, setAddress] = useState('');
+    const [weight, setWeight] = useState('');
+    const [typeDate, setTypeDate] = useState();
 
     return (
         <SafeAreaView style={styles.container}>
@@ -66,6 +69,29 @@ export default function RegistrationScreen() {
                         value={address}
                         onChangeText={address => setAddress(address)}
                         style={styles.input}
+                    />
+                </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>Weight</Text>
+                    <TextInput
+                        keyboardType='number-pad'
+                        placeholder='3kg'
+                        value={weight}
+                        onChangeText={weight => setWeight(weight)}
+                        style={styles.input}
+                    />
+                </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>Address</Text>
+                    <RNPickerSelect
+                        onValueChange={(value) => console.log(value)}
+                        items={[
+                            { label: 'Football', value: 'football' },
+                            { label: 'Baseball', value: 'baseball' },
+                            { label: 'Hockey', value: 'hockey' },
+                            ]}
                     />
                 </View>
             </View>
