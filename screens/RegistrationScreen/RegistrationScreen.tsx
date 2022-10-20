@@ -4,7 +4,8 @@ import {useState} from "react";
 import {SafeAreaView, Image, TouchableOpacity, TextInput, Text} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
-import RNPickerSelect from 'react-native-picker-select';
+import {Picker} from '@react-native-picker/picker';
+import ButtonIcon from "../../components/ButtonIcon";
 
 export default function RegistrationScreen() {
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
@@ -14,7 +15,8 @@ export default function RegistrationScreen() {
     const [breed, setBreed] = useState('');
     const [address, setAddress] = useState('');
     const [weight, setWeight] = useState('');
-    const [typeDate, setTypeDate] = useState();
+    const [yearMonth, setYearMonth] = useState();
+    const [age, setAge] = useState<Number>(0);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -35,6 +37,41 @@ export default function RegistrationScreen() {
                         placeholder='Jonh Doe'
                         value={name}
                         onChangeText={name => setName(name)}
+                        style={styles.input}
+                    />
+                </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>Age</Text>
+
+                    <View style={styles.age}>
+                        <TextInput
+                            keyboardType='number-pad'
+                            placeholder='9'
+                            value={age}
+                            onChangeText={(newAge) => setAge(newAge)}
+                            style={[styles.input, {width: '65%'}]}
+                        />
+                        <Picker
+                            selectedValue={yearMonth}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setYearMonth(itemValue)
+                            }
+                            style={styles.picker}
+                        >
+                            <Picker.Item label="Month" value="month"/>
+                            <Picker.Item label="Year" value="year"/>
+                        </Picker>
+                    </View>
+                </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>Weight</Text>
+                    <TextInput
+                        keyboardType='number-pad'
+                        placeholder='3kg'
+                        value={weight}
+                        onChangeText={weight => setWeight(weight)}
                         style={styles.input}
                     />
                 </View>
@@ -71,29 +108,7 @@ export default function RegistrationScreen() {
                         style={styles.input}
                     />
                 </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.label}>Weight</Text>
-                    <TextInput
-                        keyboardType='number-pad'
-                        placeholder='3kg'
-                        value={weight}
-                        onChangeText={weight => setWeight(weight)}
-                        style={styles.input}
-                    />
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.label}>Address</Text>
-                    <RNPickerSelect
-                        onValueChange={(value) => console.log(value)}
-                        items={[
-                            { label: 'Football', value: 'football' },
-                            { label: 'Baseball', value: 'baseball' },
-                            { label: 'Hockey', value: 'hockey' },
-                            ]}
-                    />
-                </View>
+                <ButtonIcon text='Save'/>
             </View>
         </SafeAreaView>
     );

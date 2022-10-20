@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         flex: 1,
-        marginTop: 20
+        marginTop: 20,
     },
     row: {
         marginBottom: 15
@@ -48,6 +48,14 @@ const styles = StyleSheet.create({
         height: 42,
         borderRadius: 8,
         paddingHorizontal: 10,
+    },
+    age:{
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    picker:{
+        height: 42,
+        width: '35%',
     }
 });
 
