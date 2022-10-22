@@ -80,6 +80,13 @@ export const schema = {
                         "targetName": "petCategoryId"
                     }
                 },
+                "about": {
+                    "name": "about",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -367,5 +374,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "981c091b97de4bda099824a9a65be70a"
+    "version": "d86983f8f00248152e2b36e5a6a16c17"
 };

@@ -12,17 +12,19 @@ interface FeedProps {
     data: Pet,
 }
 
-export default function Feed({data: {sex, breed, name}}: FeedProps) {
+export default function Feed({data}: FeedProps) {
     const [isFavorite, setIsFavorite] = useState(false);
     const navigation = useNavigation();
+    const {sex, breed, name} = data;
 
-    const onPress = ({data}: { data: any }) => {
-        navigation.navigate('PetScreen', {petData: data});
+    const onPress = ({data}: any) => {
+        navigation.navigate('PetScreen', {data});
     }
-    let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png'
+
+    let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
 
     return (
-        <FeedContainer onPress={() => onPress({data: [sex, breed, name]})}>
+        <FeedContainer onPress={() => onPress({data})}>
             <ImageContainer>
                 <Image
                     style={{flex: 1,}}

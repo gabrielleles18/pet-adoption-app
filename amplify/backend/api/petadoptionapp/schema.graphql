@@ -8,6 +8,7 @@ type Pet @model @auth(rules: [{allow: public}]) {
   address: String
   Images: [Images] @hasMany(indexName: "byPet", fields: ["id"])
   Category: Category @hasOne
+  about: String
 }
 
 type User @model @auth(rules: [{allow: public}]) {

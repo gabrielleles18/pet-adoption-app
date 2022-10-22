@@ -54,13 +54,16 @@ const styles = StyleSheet.create({
     },
     details: {
         flexDirection: 'row',
-        marginBottom: 25
+        marginBottom: 25,
+        justifyContent: 'space-between'
     },
     detail: {
+        width: '23%',
         borderWidth: 1,
         borderColor: '#EFEFF0',
         padding: 10,
         borderRadius: 10,
+        justifyContent: 'center',
     },
     detailTitle: {
         fontSize: 14,

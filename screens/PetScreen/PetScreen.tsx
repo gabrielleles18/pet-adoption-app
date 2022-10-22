@@ -5,16 +5,13 @@ import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import Profile from "../../components/Profile";
 import ButtonIcon from "../../components/ButtonIcon";
-import {Pet} from '../../src/models';
+import {useRoute} from "@react-navigation/native";
 
-interface PetScreenProps {
-    petData: Pet
-}
-
-export default function PetScreen({petData}: PetScreenProps) {
+export default function PetScreen() {
     let favorite = false;
+    const route = useRoute();
 
-    console.log(petData);
+    const {name, breed, age, weight, sex, address, about} = route?.params?.data;
 
     return (
         <View style={styles.container}>
@@ -35,30 +32,37 @@ export default function PetScreen({petData}: PetScreenProps) {
                 />
             </View>
             <View style={styles.content}>
-                <Text style={styles.name}>Nora</Text>
+                <Text style={styles.name}>{name}</Text>
                 <View style={styles.addressContainer}>
                     <Ionicons name="location-sharp" size={16} color="#9B8ACA"/>
-                    <Text style={styles.address}>110 N 3th St, Brooklyn, NY, USA</Text>
+                    <Text style={styles.address}>{address}</Text>
                 </View>
                 <View style={styles.details}>
                     <View style={styles.detail}>
                         <Text style={styles.detailTitle}>Age</Text>
-                        <Text style={styles.detailValue}>2 years</Text>
+                        <Text style={styles.detailValue}>{age} years</Text>
                     </View>
 
                     <View style={styles.detail}>
                         <Text style={styles.detailTitle}>Weight</Text>
-                        <Text style={styles.detailValue}>2 kg</Text>
+                        <Text style={styles.detailValue}>{weight} kg</Text>
+                    </View>
+
+                    <View style={styles.detail}>
+                        <Text style={styles.detailTitle}>Sex</Text>
+                        <Text style={styles.detailValue}>{sex}</Text>
+                    </View>
+
+                    <View style={styles.detail}>
+                        <Text style={styles.detailTitle}>Breed</Text>
+                        <Text style={styles.detailValue}>{breed}</Text>
                     </View>
                 </View>
                 <Profile/>
 
                 <View style={styles.aboutContainer}>
                     <Text style={styles.about}>About</Text>
-                    <Text style={styles.abstract}>About The Nora is a bright, sensitive dog who enjoys play with his
-                        human
-                        family and responds well to training. As herders bred to move cattle, they are fearless and
-                        independent, herders bred to move cattle, they are fearless and independent.</Text>
+                    <Text style={styles.abstract}>{about}</Text>
                 </View>
                 <ButtonIcon text='Adopt' materialIcon='pets'/>
             </View>

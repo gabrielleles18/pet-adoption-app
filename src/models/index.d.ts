@@ -30,6 +30,7 @@ export declare class Pet {
   readonly address?: string | null;
   readonly Images?: (Images | null)[] | null;
   readonly Category?: Category | null;
+  readonly about?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
