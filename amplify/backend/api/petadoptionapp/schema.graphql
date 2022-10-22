@@ -1,3 +1,14 @@
+type Favorites @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Pet: Pet @hasOne
+  userID: ID! @index(name: "byUser")
+}
+
+type Age @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type: String
+}
+
 type Pet @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
@@ -9,6 +20,7 @@ type Pet @model @auth(rules: [{allow: public}]) {
   Images: [Images] @hasMany(indexName: "byPet", fields: ["id"])
   Category: Category @hasOne
   about: String
+  userID: ID! @index(name: "byUser")
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -19,6 +31,8 @@ type User @model @auth(rules: [{allow: public}]) {
   state: String
   image: String
   email: String
+  Favorites: [Favorites] @hasMany(indexName: "byUser", fields: ["id"])
+  Pets: [Pet] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 type Images @model @auth(rules: [{allow: public}]) {
@@ -31,5 +45,4 @@ type Category @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   image: String
-}
- 
+} 

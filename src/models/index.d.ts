@@ -4,6 +4,10 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+type FavoritesMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type PetMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -16,8 +20,23 @@ type CategoryMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type AgeMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Favorites {
+  readonly id: string;
+  readonly Pet?: Pet | null;
+  readonly userID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly favoritesPetId?: string | null;
+  constructor(init: ModelInit<Favorites, FavoritesMetaData>);
+  static copyOf(source: Favorites, mutator: (draft: MutableModel<Favorites, FavoritesMetaData>) => MutableModel<Favorites, FavoritesMetaData> | void): Favorites;
 }
 
 export declare class Pet {
@@ -31,6 +50,7 @@ export declare class Pet {
   readonly Images?: (Images | null)[] | null;
   readonly Category?: Category | null;
   readonly about?: string | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
@@ -58,6 +78,15 @@ export declare class Category {
   static copyOf(source: Category, mutator: (draft: MutableModel<Category, CategoryMetaData>) => MutableModel<Category, CategoryMetaData> | void): Category;
 }
 
+export declare class Age {
+  readonly id: string;
+  readonly type?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Age, AgeMetaData>);
+  static copyOf(source: Age, mutator: (draft: MutableModel<Age, AgeMetaData>) => MutableModel<Age, AgeMetaData> | void): Age;
+}
+
 export declare class User {
   readonly id: string;
   readonly name?: string | null;
@@ -66,6 +95,8 @@ export declare class User {
   readonly state?: string | null;
   readonly image?: string | null;
   readonly email?: string | null;
+  readonly Favorites?: (Favorites | null)[] | null;
+  readonly Pets?: (Pet | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<User, UserMetaData>);
