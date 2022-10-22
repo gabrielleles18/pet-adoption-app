@@ -1,31 +1,20 @@
 import {CategoryContainer, Title, ContainerImage} from './styles';
 import {Image} from "react-native";
-import ImageDogGreen from "../../assets/images/category/dog-green.png";
 import ImageDogGray from "../../assets/images/category/dog-gray.png";
-
-interface DataPros {
-    name: string;
-    image: string;
-    isActive: boolean;
-}
+import {Category as CategoryModel} from '../../src/models';
+import {useState} from "react";
 
 interface CategoryProps {
-    data: DataPros,
-    rest?: any
+    data: CategoryModel;
 }
 
-export default function Category({data: {isActive, name, image}, ...rest}: CategoryProps) {
-
-    const imagens = {
-        dogs: {
-            green: ImageDogGreen,
-            gray: ImageDogGray
-        }
-    }
+export default function Category({data: {name}}: CategoryProps) {
+    const [selected, setSelected] = useState(false);
+    const isActive = true;
 
     return (
-        <CategoryContainer {...rest}>
-            <ContainerImage isActive={isActive}>
+        <CategoryContainer onPress={() => setSelected(!selected)}>
+            <ContainerImage isActive={selected ? isActive : false}>
                 <Image source={ImageDogGray} style={{width: 35}} resizeMode='contain'/>
             </ContainerImage>
             <Title>{name}</Title>

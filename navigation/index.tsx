@@ -17,6 +17,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import HomeScreen from '../screens/HomeScreen';
+import PetScreen from '../screens/PetScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -66,6 +67,16 @@ function BottomTabNavigator() {
             <BottomTab.Screen
                 name="HomeScreen"
                 component={HomeScreen}
+                options={{
+                    title: '',
+                    headerShown: false,
+                    tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
+                }}
+            />
+
+            <BottomTab.Screen
+                name="PetScreen"
+                component={PetScreen}
                 options={{
                     title: '',
                     headerShown: false,

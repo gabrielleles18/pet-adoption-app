@@ -1,5 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Amplify} from 'aws-amplify'
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -8,6 +9,9 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 import HomeScreen from "./screens/HomeScreen";
 import PetScreen from "./screens/PetScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
+import awsExports from './src/aws-exports'
+
+Amplify.configure(awsExports);
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -18,10 +22,8 @@ export default function App() {
     } else {
         return (
             <SafeAreaProvider>
-                <RegistrationScreen/>
-                {/*<PetScreen/>*/}
-                {/*<Navigation colorScheme={colorScheme}/>*/}
-                {/*<StatusBar/>*/}
+                <Navigation colorScheme={colorScheme}/>
+                <StatusBar/>
             </SafeAreaProvider>
         );
     }

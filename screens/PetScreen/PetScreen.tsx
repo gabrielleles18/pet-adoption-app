@@ -5,9 +5,16 @@ import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import Profile from "../../components/Profile";
 import ButtonIcon from "../../components/ButtonIcon";
+import {Pet} from '../../src/models';
 
-export default function PetScreen() {
+interface PetScreenProps {
+    petData: Pet
+}
+
+export default function PetScreen({petData}: PetScreenProps) {
     let favorite = false;
+
+    console.log(petData);
 
     return (
         <View style={styles.container}>

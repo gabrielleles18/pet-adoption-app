@@ -4,10 +4,11 @@ import Colors from "../../constants/Colors";
 import {StyleSheet} from "react-native";
 
 export const FeedContainer = styled.TouchableOpacity`
-  width: 160px;
+  width: 47%;
   border: 1px solid #EFEFF0;
   border-radius: 15px;
   overflow: hidden;
+  margin-bottom: 25px;
 `;
 
 export const ImageContainer = styled.View`

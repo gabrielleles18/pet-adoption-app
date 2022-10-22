@@ -4,35 +4,34 @@ import {AntDesign} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import {Ionicons} from '@expo/vector-icons';
 import {Text} from '../Themed';
+import {Pet} from '../../src/models';
+import {useState} from "react";
+import {useNavigation} from "@react-navigation/native";
 
 interface FeedProps {
-    name: string;
-    breed: string;
-    sex: string;
-    favorite?: boolean;
-    imageUri?: string;
+    data: Pet,
 }
 
-interface DataProps {
-    data: FeedProps,
-    rest?: any
-}
+export default function Feed({data: {sex, breed, name}}: FeedProps) {
+    const [isFavorite, setIsFavorite] = useState(false);
+    const navigation = useNavigation();
 
-export default function Feed({data: {sex, breed, name, favorite, imageUri}, ...rest}: DataProps) {
-    favorite = true;
-    imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png'
+    const onPress = ({data}: { data: any }) => {
+        navigation.navigate('PetScreen', {petData: data});
+    }
+    let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png'
 
     return (
-        <FeedContainer {...rest}>
+        <FeedContainer onPress={() => onPress({data: [sex, breed, name]})}>
             <ImageContainer>
                 <Image
                     style={{flex: 1,}}
                     source={{uri: imageUri}}
                     resizeMode="cover"
                 />
-                <Favorite>
+                <Favorite onPress={() => setIsFavorite(!isFavorite)}>
                     <AntDesign
-                        name={favorite ? 'heart' : 'hearto'}
+                        name={isFavorite ? 'heart' : 'hearto'}
                         size={17}
                         color={Colors.light.primaryLight}
                     />

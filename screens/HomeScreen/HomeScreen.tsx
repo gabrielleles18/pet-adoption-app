@@ -1,14 +1,34 @@
-import {TextInput, View, TouchableOpacity} from "react-native";
+import {TextInput, View, TouchableOpacity, FlatList, ScrollView} from "react-native";
 import styles from "./styles";
 import Feed from "../../components/Feed";
 import Category from "../../components/Category";
 import {Ionicons} from '@expo/vector-icons';
 import Profile from "../../components/Profile";
 import {Feather} from '@expo/vector-icons';
+import {DataStore} from '@aws-amplify/datastore';
+import {Category as CategoryModel, Pet} from '../../src/models';
+import {useEffect, useState} from "react";
 
 export default function HomeScreen() {
+    const [categories, setCategories] = useState<CategoryModel[]>([]);
+    const [pets, setPets] = useState<Pet[]>([]);
+
+    useEffect(() => {
+        //Categories
+        const fetchCategories = async () => {
+            return await DataStore.query(CategoryModel);
+        }
+        fetchCategories().then(setCategories);
+
+        //Pets
+        const fetchPets = async () => {
+            return await DataStore.query(Pet);
+        };
+        fetchPets().then(setPets);
+    }, []);
+
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <View style={styles.header}>
                 <TouchableOpacity>
                     <Ionicons name="md-menu" size={35} color="#5F5B5B"/>
@@ -36,20 +56,30 @@ export default function HomeScreen() {
                 </TouchableOpacity>
             </View>
 
-            <Category data={{
-                name: 'Dog',
-                isActive: true,
-                image: 'dog'
-            }}/>
-
+            <FlatList
+                data={categories}
+                renderItem={({item}) => <Category data={item}/>}
+                ItemSeparatorComponent={
+                    () => <View style={{width: 10}}/>
+                }
+                horizontal
+                style={styles.flatList}
+                showsHorizontalScrollIndicator={false}
+            />
             <View style={styles.feed}>
-                <Feed data={{
-                    name: 'Luna',
-                    breed: 'Poodle',
-                    sex: 'Male'
-                }}/>
+
+                <FlatList
+                    columnWrapperStyle={{justifyContent: 'space-between'}}
+                    data={pets}
+                    renderItem={({item}) => <Feed data={item}/>}
+                    ItemSeparatorComponent={
+                        () => <View style={{width: 10}}/>
+                    }
+                    style={styles.flatList}
+                    numColumns={2}
+                />
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
