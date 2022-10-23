@@ -42,8 +42,8 @@ export declare class Favorites {
 export declare class Pet {
   readonly id: string;
   readonly name?: string | null;
-  readonly age?: string | null;
-  readonly weight?: string | null;
+  readonly age?: number | null;
+  readonly weight?: number | null;
   readonly sex?: string | null;
   readonly breed?: string | null;
   readonly address?: string | null;
@@ -91,7 +91,7 @@ export declare class User {
   readonly id: string;
   readonly name?: string | null;
   readonly userName?: string | null;
-  readonly phone?: string | null;
+  readonly phone?: number | null;
   readonly state?: string | null;
   readonly image?: string | null;
   readonly email?: string | null;

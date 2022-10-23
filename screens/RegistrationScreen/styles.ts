@@ -4,7 +4,9 @@ import Colors from "../../constants/Colors";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 50
+        paddingHorizontal: 20,
+        backgroundColor: '#ffffff',
+        paddingVertical: 20
     },
     containerImage: {
         width: 80,
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     row: {
-        marginBottom: 15
+        marginBottom: 15,
     },
     label: {
         fontSize: 14,

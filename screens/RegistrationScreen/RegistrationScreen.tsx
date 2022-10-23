@@ -1,11 +1,13 @@
 import styles from "./styles";
 import {View} from '../../components/Themed';
-import {useState} from "react";
-import {SafeAreaView, Image, TouchableOpacity, TextInput, Text} from "react-native";
+import {useEffect, useState} from "react";
+import {SafeAreaView, Image, TouchableOpacity, TextInput, Text, ScrollView} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
 import {Picker} from '@react-native-picker/picker';
 import ButtonIcon from "../../components/ButtonIcon";
+import {DataStore} from "@aws-amplify/datastore";
+import {Age as AgeModel, Pet} from "../../src/models";
 
 export default function RegistrationScreen() {
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
@@ -17,9 +19,32 @@ export default function RegistrationScreen() {
     const [weight, setWeight] = useState('');
     const [yearMonth, setYearMonth] = useState();
     const [age, setAge] = useState<Number>(0);
+    const [ageDB, setAgeDB] = useState<Object>(0);
+    const [about, setAbout] = useState('');
+
+    useEffect(() => {
+        const fetchAges = async () => {
+            return await DataStore.query(AgeModel);
+        }
+        fetchAges().then(setAgeDB);
+    }, []);
+
+    const savePet = async () => {
+        const newPet = await DataStore.save(new Pet({
+            name,
+            age,
+            weight,
+            sex,
+            breed,
+            address,
+            about,
+        }));
+
+        console.log(newPet);
+    }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.containerImage}>
                 {imageUri && (
                     <Image source={{uri: imageUri}} style={styles.image}/>
@@ -59,8 +84,9 @@ export default function RegistrationScreen() {
                             }
                             style={styles.picker}
                         >
-                            <Picker.Item label="Month" value="month"/>
-                            <Picker.Item label="Year" value="year"/>
+                            {/*{ageDB && Object(ageDB).map((item: AgeModel) => (*/}
+                            {/*    <Picker.Item label={item?.type} value={item?.id}/>*/}
+                            {/*))}*/}
                         </Picker>
                     </View>
                 </View>
@@ -71,7 +97,7 @@ export default function RegistrationScreen() {
                         keyboardType='number-pad'
                         placeholder='3kg'
                         value={weight}
-                        onChangeText={weight => setWeight(weight)}
+                        onChangeText={newWeight => setWeight(newWeight)}
                         style={styles.input}
                     />
                 </View>
@@ -101,15 +127,27 @@ export default function RegistrationScreen() {
                 <View style={styles.row}>
                     <Text style={styles.label}>Address</Text>
                     <TextInput
-                        keyboardType='default'
+                        keyboardType='addressCity'
                         placeholder='Street 129, N 89'
                         value={address}
                         onChangeText={address => setAddress(address)}
                         style={styles.input}
                     />
                 </View>
-                <ButtonIcon text='Save'/>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>About</Text>
+                    <TextInput
+                        multiline
+                        keyboardType='default'
+                        placeholder='About the pet'
+                        value={about}
+                        onChangeText={about => setAbout(about)}
+                        style={[styles.input, {height: 80}]}
+                    />
+                </View>
+                <ButtonIcon text='Save' onPress={savePet}/>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 }

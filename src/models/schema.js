@@ -109,14 +109,14 @@ export const schema = {
                 "age": {
                     "name": "age",
                     "isArray": false,
-                    "type": "ID",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
                 "weight": {
                     "name": "weight",
                     "isArray": false,
-                    "type": "ID",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -468,7 +468,7 @@ export const schema = {
                 "phone": {
                     "name": "phone",
                     "isArray": false,
-                    "type": "ID",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -566,5 +566,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "e1f43c25621db47fd804d9837cbb7805"
+    "version": "ce17c6b9a6a317a216b375626fc88b2a"
 };

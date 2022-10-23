@@ -7,7 +7,7 @@ interface ButtonIconProps {
     rest?: any;
 }
 
-export default function ButtonIcon({text, materialIcon, ...rest}: ButtonIconProps) {
+export default function ButtonIcon({text, materialIcon,...rest}: ButtonIconProps) {
     // @ts-ignore
     return (
         <ButtonContainer {...rest}>
