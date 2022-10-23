@@ -1,5 +1,6 @@
 import {StyleSheet} from "react-native";
 import Colors from "../../constants/Colors";
+import {getStatusBarHeight} from "react-native-iphone-x-helper";
 
 const styles = StyleSheet.create({
     container: {
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: getStatusBarHeight() + 10,
     },
     image: {
         width: '100%',
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '500'
     },
-    aboutContainer:{
+    aboutContainer: {
         flex: 1
     },
     about: {

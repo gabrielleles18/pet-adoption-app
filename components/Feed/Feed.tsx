@@ -17,11 +17,11 @@ export default function Feed({data}: FeedProps) {
     const navigation = useNavigation();
     const {sex, breed, name} = data;
 
-    const onPress = ({data}: any) => {
-        navigation.navigate('PetScreen', {data});
-    }
-
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
+
+    const onPress = ({data}: any) => {
+        navigation.navigate('Pet', {data});
+    }
 
     return (
         <FeedContainer onPress={() => onPress({data})}>

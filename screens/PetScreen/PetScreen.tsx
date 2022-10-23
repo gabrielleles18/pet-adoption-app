@@ -5,19 +5,21 @@ import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import Profile from "../../components/Profile";
 import ButtonIcon from "../../components/ButtonIcon";
-import {useRoute} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 
 export default function PetScreen() {
     let favorite = false;
     const route = useRoute();
-
     const {name, breed, age, weight, sex, address, about} = route?.params?.data;
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <View style={styles.header}>
-                    <Ionicons name="chevron-back" size={30} color="white"/>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Ionicons name="chevron-back" size={30} color="white"/>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.favorite}>
                         <AntDesign
                             name={favorite ? 'heart' : 'hearto'}

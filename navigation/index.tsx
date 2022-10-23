@@ -15,7 +15,6 @@ import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PetScreen from '../screens/PetScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
@@ -41,6 +40,7 @@ function RootNavigator() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{headerShown: false}}/>
+            <Stack.Screen name="Pet" component={PetScreen} options={{headerShown: false}}/>
             <Stack.Screen name="NotFound" component={NotFoundScreen} options={{title: 'Oops!'}}/>
             <Stack.Group screenOptions={{presentation: 'modal'}}>
                 <Stack.Screen name="Modal" component={ModalScreen}/>
@@ -60,23 +60,13 @@ function BottomTabNavigator() {
 
     return (
         <BottomTab.Navigator
-            initialRouteName="TabOne"
+            initialRouteName="Home"
             screenOptions={{
                 tabBarActiveTintColor: Colors[colorScheme].primary,
             }}>
             <BottomTab.Screen
-                name="HomeScreen"
+                name="Home"
                 component={HomeScreen}
-                options={{
-                    title: '',
-                    headerShown: false,
-                    tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
-                }}
-            />
-
-            <BottomTab.Screen
-                name="PetScreen"
-                component={PetScreen}
                 options={{
                     title: '',
                     headerShown: false,
@@ -104,14 +94,6 @@ function BottomTabNavigator() {
                         </Pressable>
                     ),
                 })}
-            />
-            <BottomTab.Screen
-                name="TabTwo"
-                component={TabTwoScreen}
-                options={{
-                    title: '',
-                    tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,
-                }}
             />
         </BottomTab.Navigator>
     );
