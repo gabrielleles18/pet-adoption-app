@@ -183,6 +183,20 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "Age": {
+                    "name": "Age",
+                    "isArray": false,
+                    "type": {
+                        "model": "Age"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id",
+                        "targetName": "petAgeId"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -201,6 +215,13 @@ export const schema = {
                 },
                 "petCategoryId": {
                     "name": "petCategoryId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "petAgeId": {
+                    "name": "petAgeId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -566,5 +587,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "ce17c6b9a6a317a216b375626fc88b2a"
+    "version": "0b0422ff724c47351aefed5c1ef0669f"
 };

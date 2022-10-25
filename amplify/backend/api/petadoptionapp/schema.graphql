@@ -21,6 +21,7 @@ type Pet @model @auth(rules: [{allow: public}]) {
   Category: Category @hasOne
   about: String
   userID: ID! @index(name: "byUser")
+  Age: Age @hasOne
 }
 
 type User @model @auth(rules: [{allow: public}]) {

@@ -51,10 +51,13 @@ export declare class Pet {
   readonly Category?: Category | null;
   readonly about?: string | null;
   readonly userID: string;
+  readonly Age?: Age | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
-  constructor(init: ModelInit<Pet, PetMetaData>);
+  readonly petAgeId?: string | null;
+
+    constructor(init: { address: string; sex: string; name: string; about: string; weight: number; petCategoryId: string; userID: string; Age: string; age: number; breed: string });
   static copyOf(source: Pet, mutator: (draft: MutableModel<Pet, PetMetaData>) => MutableModel<Pet, PetMetaData> | void): Pet;
 }
 

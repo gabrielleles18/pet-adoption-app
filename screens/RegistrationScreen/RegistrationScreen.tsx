@@ -7,7 +7,7 @@ import Colors from "../../constants/Colors";
 import {Picker} from '@react-native-picker/picker';
 import ButtonIcon from "../../components/ButtonIcon";
 import {DataStore} from "@aws-amplify/datastore";
-import {Age as AgeModel, Pet} from "../../src/models";
+import {Age as AgeModel, Pet, Category as CategoryModel} from "../../src/models";
 
 export default function RegistrationScreen() {
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
@@ -16,31 +16,39 @@ export default function RegistrationScreen() {
     const [sex, setSex] = useState('');
     const [breed, setBreed] = useState('');
     const [address, setAddress] = useState('');
-    const [weight, setWeight] = useState('');
-    const [yearMonth, setYearMonth] = useState();
-    const [age, setAge] = useState<Number>(0);
-    const [ageDB, setAgeDB] = useState<Object>(0);
+    const [yearMonth, setYearMonth] = useState<String | ''>('');
+    const [weight, setWeight] = useState<Number | 0>(0);
+    const [age, setAge] = useState<Number | 0>(0);
     const [about, setAbout] = useState('');
+    const [ageDB, setAgeDB] = useState<Array<any> | []>([]);
+    const [categories, setCategories] = useState<Array<any> | []>([]);
+    const [category, setCategory] = useState<String>('');
 
     useEffect(() => {
         const fetchAges = async () => {
             return await DataStore.query(AgeModel);
         }
         fetchAges().then(setAgeDB);
+
+        const fetchCategory = async () => {
+            return await DataStore.query(CategoryModel);
+        }
+        fetchCategory().then(setCategories);
     }, []);
 
     const savePet = async () => {
         const newPet = await DataStore.save(new Pet({
+            userID: 'd7bb20e9-a84a-4533-8973-14542975d1a6',
+            petCategoryId: category.toString(),
+            Age: yearMonth.toString(),
             name,
-            age,
-            weight,
+            age: Number(age),
+            weight: Number(weight),
             sex,
             breed,
             address,
             about,
         }));
-
-        console.log(newPet);
     }
 
     return (
@@ -73,8 +81,8 @@ export default function RegistrationScreen() {
                         <TextInput
                             keyboardType='number-pad'
                             placeholder='9'
-                            value={age}
-                            onChangeText={(newAge) => setAge(newAge)}
+                            value={age.toString()}
+                            onChangeText={(newAge) => setAge(Number(newAge))}
                             style={[styles.input, {width: '65%'}]}
                         />
                         <Picker
@@ -84,11 +92,37 @@ export default function RegistrationScreen() {
                             }
                             style={styles.picker}
                         >
-                            {/*{ageDB && Object(ageDB).map((item: AgeModel) => (*/}
-                            {/*    <Picker.Item label={item?.type} value={item?.id}/>*/}
-                            {/*))}*/}
+                            {ageDB?.map((item: AgeModel) => {
+                                if (item?.type) {
+                                    return (<Picker.Item label={item?.type} value={item.id} key={item.id}/>);
+                                }
+                            })}
                         </Picker>
                     </View>
+                </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>Category</Text>
+                    <Picker
+                        selectedValue={category}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setCategory(itemValue)
+                        }
+                        style={[styles.picker, {
+                            width: '100%',
+                            backgroundColor: '#F6F4F9',
+                            height: 42,
+                            borderRadius: 8,
+                            overflow: 'hidden',
+                            marginBottom: 10,
+                        }]}
+                    >
+                        {categories?.map((item: CategoryModel) => {
+                            if (item?.name) {
+                                return (<Picker.Item label={item?.name} value={item?.id} key={item.id}/>);
+                            }
+                        })}
+                    </Picker>
                 </View>
 
                 <View style={styles.row}>
@@ -96,8 +130,8 @@ export default function RegistrationScreen() {
                     <TextInput
                         keyboardType='number-pad'
                         placeholder='3kg'
-                        value={weight}
-                        onChangeText={newWeight => setWeight(newWeight)}
+                        value={weight.toString()}
+                        onChangeText={newWeight => setWeight(Number(newWeight))}
                         style={styles.input}
                     />
                 </View>
