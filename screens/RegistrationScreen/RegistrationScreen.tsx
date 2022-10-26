@@ -8,10 +8,16 @@ import {Picker} from '@react-native-picker/picker';
 import ButtonIcon from "../../components/ButtonIcon";
 import {DataStore} from "@aws-amplify/datastore";
 import {Age as AgeModel, Pet, Category as CategoryModel} from "../../src/models";
+import * as ImagePicker from "expo-image-picker";
+import { Storage } from "@aws-amplify/storage"
+import uuid from 'react-native-uuid';
+import { withAuthenticator } from 'aws-amplify-react-native';
 
-export default function RegistrationScreen() {
+
+function RegistrationScreen() {
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
     let iconPlus = true
+
     const [name, setName] = useState('');
     const [sex, setSex] = useState('');
     const [breed, setBreed] = useState('');
@@ -23,17 +29,18 @@ export default function RegistrationScreen() {
     const [ageDB, setAgeDB] = useState<Array<any> | []>([]);
     const [categories, setCategories] = useState<Array<any> | []>([]);
     const [category, setCategory] = useState<String>('');
+    const [image, setImage] = useState<String>('');
 
     useEffect(() => {
-        const fetchAges = async () => {
-            return await DataStore.query(AgeModel);
-        }
-        fetchAges().then(setAgeDB);
-
-        const fetchCategory = async () => {
-            return await DataStore.query(CategoryModel);
-        }
-        fetchCategory().then(setCategories);
+        // const fetchAges = async () => {
+        //     return await DataStore.query(AgeModel);
+        // }
+        // fetchAges().then(setAgeDB);
+        //
+        // const fetchCategory = async () => {
+        //     return await DataStore.query(CategoryModel);
+        // }
+        // fetchCategory().then(setCategories);
     }, []);
 
     const savePet = async () => {
@@ -51,14 +58,39 @@ export default function RegistrationScreen() {
         }));
     }
 
+    const getBlob = async (uri: any) => {
+        const response = await fetch(uri);
+        return await response.blob();
+    }
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        if (!image) {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+
+            if (!result.cancelled) {
+                setImage(result.uri);
+            }
+        } else {
+            const blob = await getBlob(image);
+            const {key} = await Storage.put(`${uuid.v4()}.png`, blob);
+            console.log(key);
+        }
+    };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.containerImage}>
-                {imageUri && (
-                    <Image source={{uri: imageUri}} style={styles.image}/>
+                {image && (
+                    <Image source={{uri: image}} style={styles.image}/>
                 )}
-                <TouchableOpacity style={styles.containerIcon}>
-                    <AntDesign name={iconPlus ? 'plus' : 'minus'} size={20} color={Colors.light.primary}/>
+                <TouchableOpacity style={styles.containerIcon} onPress={pickImage}>
+                    <AntDesign name={image ? 'cloudupload' : 'pluscircle'} size={20} color={Colors.light.primary}/>
                 </TouchableOpacity>
             </View>
 
@@ -92,11 +124,11 @@ export default function RegistrationScreen() {
                             }
                             style={styles.picker}
                         >
-                            {ageDB?.map((item: AgeModel) => {
-                                if (item?.type) {
-                                    return (<Picker.Item label={item?.type} value={item.id} key={item.id}/>);
-                                }
-                            })}
+                            {/*{ageDB?.map((item: AgeModel) => {*/}
+                            {/*    if (item?.type) {*/}
+                            {/*        return (<Picker.Item label={item?.type} value={item.id} key={item.id}/>);*/}
+                            {/*    }*/}
+                            {/*})}*/}
                         </Picker>
                     </View>
                 </View>
@@ -117,11 +149,11 @@ export default function RegistrationScreen() {
                             marginBottom: 10,
                         }]}
                     >
-                        {categories?.map((item: CategoryModel) => {
-                            if (item?.name) {
-                                return (<Picker.Item label={item?.name} value={item?.id} key={item.id}/>);
-                            }
-                        })}
+                        {/*{categories?.map((item: CategoryModel) => {*/}
+                        {/*    if (item?.name) {*/}
+                        {/*        return (<Picker.Item label={item?.name} value={item?.id} key={item.id}/>);*/}
+                        {/*    }*/}
+                        {/*})}*/}
                     </Picker>
                 </View>
 
@@ -185,3 +217,5 @@ export default function RegistrationScreen() {
         </ScrollView>
     );
 }
+
+export default withAuthenticator(RegistrationScreen);

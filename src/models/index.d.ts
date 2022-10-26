@@ -56,8 +56,7 @@ export declare class Pet {
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
   readonly petAgeId?: string | null;
-
-    constructor(init: { address: string; sex: string; name: string; about: string; weight: number; petCategoryId: string; userID: string; Age: string; age: number; breed: string });
+  constructor(init: ModelInit<Pet, PetMetaData>);
   static copyOf(source: Pet, mutator: (draft: MutableModel<Pet, PetMetaData>) => MutableModel<Pet, PetMetaData> | void): Pet;
 }
 

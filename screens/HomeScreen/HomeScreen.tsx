@@ -1,4 +1,4 @@
-import {TextInput, View, TouchableOpacity, FlatList, ScrollView} from "react-native";
+import {TextInput, View, TouchableOpacity, FlatList, ScrollView, SafeAreaView} from "react-native";
 import styles from "./styles";
 import Feed from "../../components/Feed";
 import Category from "../../components/Category";
@@ -28,7 +28,7 @@ export default function HomeScreen() {
     }, []);
 
     return (
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity>
                     <Ionicons name="md-menu" size={35} color="#5F5B5B"/>
@@ -79,7 +79,7 @@ export default function HomeScreen() {
                     numColumns={2}
                 />
             </View>
-        </ScrollView>
+        </SafeAreaView>
     );
 }
 

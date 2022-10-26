@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3petadoptionappstorage174f90ad",
+  "bucketName": "petadoptionapp-storage-174f90ad",
+  "policyUUID": "60a34f3f",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
