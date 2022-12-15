@@ -1,0 +1,19 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "petadoptionapp",
+  "functionName": "petadoptionappPostConfirmation",
+  "resourceName": "petadoptionappPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "petadoptionappPostConfirmation",
+  "skipEdit": true,
+  "deploymentBucketName": "amplify-petadoptionapp-dev-151935-deployment",
+  "s3Key": "amplify-builds/petadoptionappPostConfirmation-414f2f77504447523664-build.zip",
+  "enableCors": false
+}

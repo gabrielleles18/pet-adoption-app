@@ -9,10 +9,23 @@
       "UnauthRoleName": "amplify-petadoptionapp-dev-151935-unauthRole",
       "StackName": "amplify-petadoptionapp-dev-151935",
       "StackId": "arn:aws:cloudformation:us-east-1:811813368060:stack/amplify-petadoptionapp-dev-151935/16ab2560-5236-11ed-9dac-0e06e901d1c1",
-      "AmplifyAppId": "d91blsp22ffru"
+      "AmplifyAppId": "d91blsp22ffru",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-petadoptionapp-dev-151935-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
+        "petadoptionapp": {}
+      },
+      "storage": {
+        "s3petadoptionappstorage174f90ad": {}
+      },
+      "function": {
+        "petadoptionappPostConfirmation": {
+          "deploymentBucketName": "amplify-petadoptionapp-dev-151935-deployment",
+          "s3Key": "amplify-builds/petadoptionappPostConfirmation-334f335a496c6b725465-build.zip"
+        }
+      },
+      "api": {
         "petadoptionapp": {}
       }
     }

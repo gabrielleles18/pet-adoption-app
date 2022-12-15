@@ -9,14 +9,16 @@ import ButtonIcon from "../../components/ButtonIcon";
 import {DataStore} from "@aws-amplify/datastore";
 import {Age as AgeModel, Pet, Category as CategoryModel} from "../../src/models";
 import * as ImagePicker from "expo-image-picker";
-import { Storage } from "@aws-amplify/storage"
+import {Storage} from "@aws-amplify/storage"
 import uuid from 'react-native-uuid';
-import { withAuthenticator } from 'aws-amplify-react-native';
-
+import {withAuthenticator} from 'aws-amplify-react-native';
+import {Auth} from 'aws-amplify';
 
 function RegistrationScreen() {
     let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
-    let iconPlus = true
+    let iconPlus = true;
+
+    // Auth.currentAuthenticatedUser().then(user => console.log(user.username));
 
     const [name, setName] = useState('');
     const [sex, setSex] = useState('');
@@ -212,10 +214,23 @@ function RegistrationScreen() {
                         style={[styles.input, {height: 80}]}
                     />
                 </View>
-                <ButtonIcon text='Save' onPress={savePet}/>
+                <ButtonIcon text='Save' onPress={() => Auth.signOut()}/>
             </View>
         </ScrollView>
     );
 }
 
+const signUpConfig = {
+    signUpFields: [
+        {
+            label: 'Locale',
+            key: 'locale',
+            required: true,
+            displayOrder: 2,
+            type: 'string',
+            placeholder: 'Enter your email',
+
+        }
+    ]
+};
 export default withAuthenticator(RegistrationScreen);

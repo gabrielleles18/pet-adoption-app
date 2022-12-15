@@ -2,8 +2,8 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "petado2098d43e",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "petado6905bb42",
     "userPoolName": "petadoptionapp",
     "autoVerifiedAttributes": [
       "email"
@@ -19,10 +19,10 @@
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
-      "Requires Numbers"
+      "Requires Lowercase"
     ],
     "requiredAttributes": [
-      "nickname",
+      "email",
       "phone_number"
     ],
     "aliasAttributes": [],
@@ -30,15 +30,12 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "petado2098d43e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "petado6905bb42_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "2098d43e",
+    "sharedId": "6905bb42",
     "resourceName": "petadoptionapp",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
-    "usernameAttributes": [
-      "email"
-    ],
     "useDefault": "manual",
     "userPoolGroups": false,
     "userPoolGroupList": [],
@@ -60,6 +57,27 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "petadoptionappPostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "triggers": {
+      "PostConfirmation": [
+        "custom"
+      ]
+    },
+    "hostedUI": false,
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"petadoptionappPostConfirmation\"\n  }\n]",
+    "permissions": []
   }
 }
