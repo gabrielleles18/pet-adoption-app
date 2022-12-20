@@ -1,94 +1,5 @@
 export const schema = {
     "models": {
-        "Favorites": {
-            "name": "Favorites",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Pet": {
-                    "name": "Pet",
-                    "isArray": false,
-                    "type": {
-                        "model": "Pet"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id",
-                        "targetName": "favoritesPetId"
-                    }
-                },
-                "userID": {
-                    "name": "userID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "favoritesPetId": {
-                    "name": "favoritesPetId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Favorites",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byUser",
-                        "fields": [
-                            "userID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
         "Pet": {
             "name": "Pet",
             "fields": {
@@ -116,7 +27,7 @@ export const schema = {
                 "weight": {
                     "name": "weight",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -136,6 +47,13 @@ export const schema = {
                 },
                 "address": {
                     "name": "address",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "abount": {
+                    "name": "abount",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -169,13 +87,6 @@ export const schema = {
                         "targetName": "petCategoryId"
                     }
                 },
-                "about": {
-                    "name": "about",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "userID": {
                     "name": "userID",
                     "isArray": false,
@@ -183,18 +94,18 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Age": {
-                    "name": "Age",
+                "AgeType": {
+                    "name": "AgeType",
                     "isArray": false,
                     "type": {
-                        "model": "Age"
+                        "model": "AgeType"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "HAS_ONE",
                         "associatedWith": "id",
-                        "targetName": "petAgeId"
+                        "targetName": "petAgeTypeId"
                     }
                 },
                 "createdAt": {
@@ -220,8 +131,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "petAgeId": {
-                    "name": "petAgeId",
+                "petAgeTypeId": {
+                    "name": "petAgeTypeId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -403,8 +314,8 @@ export const schema = {
                 }
             ]
         },
-        "Age": {
-            "name": "Age",
+        "AgeType": {
+            "name": "AgeType",
             "fields": {
                 "id": {
                     "name": "id",
@@ -438,11 +349,100 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Ages",
+            "pluralName": "AgeTypes",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Favorites": {
+            "name": "Favorites",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Pet": {
+                    "name": "Pet",
+                    "isArray": false,
+                    "type": {
+                        "model": "Pet"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id",
+                        "targetName": "favoritesPetId"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "favoritesPetId": {
+                    "name": "favoritesPetId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Favorites",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -588,5 +588,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "0b0422ff724c47351aefed5c1ef0669f"
+    "version": "1844d343869ce4c9108288187590b9a6"
 };

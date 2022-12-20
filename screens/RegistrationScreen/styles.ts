@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         paddingVertical: 20
     },
+    containerImages:{
+        flexDirection: 'row',
+    },
     containerImage: {
         width: 80,
         height: 120,
@@ -17,6 +20,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         justifyContent: 'center',
         alignItems: 'center',
+        marginRight: 10
     },
     containerIcon: {
         width: 35,

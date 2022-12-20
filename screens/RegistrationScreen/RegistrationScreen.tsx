@@ -1,13 +1,13 @@
 import styles from "./styles";
 import {View} from '../../components/Themed';
-import {useEffect, useState} from "react";
-import {SafeAreaView, Image, TouchableOpacity, TextInput, Text, ScrollView} from "react-native";
+import React, {useEffect, useState} from "react";
+import {SafeAreaView, Image, TouchableOpacity, TextInput, Text, ScrollView, FlatList} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
 import {Picker} from '@react-native-picker/picker';
 import ButtonIcon from "../../components/ButtonIcon";
 import {DataStore} from "@aws-amplify/datastore";
-import {Age as AgeModel, Pet, Category as CategoryModel} from "../../src/models";
+import {AgeType, Pet, Category as CategoryModel} from "../../src/models";
 import * as ImagePicker from "expo-image-picker";
 import {Storage} from "@aws-amplify/storage"
 import uuid from 'react-native-uuid';
@@ -15,11 +15,6 @@ import {withAuthenticator} from 'aws-amplify-react-native';
 import {Auth} from 'aws-amplify';
 
 function RegistrationScreen() {
-    let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
-    let iconPlus = true;
-
-    // Auth.currentAuthenticatedUser().then(user => console.log(user.username));
-
     const [name, setName] = useState('');
     const [sex, setSex] = useState('');
     const [breed, setBreed] = useState('');
@@ -31,33 +26,37 @@ function RegistrationScreen() {
     const [ageDB, setAgeDB] = useState<Array<any> | []>([]);
     const [categories, setCategories] = useState<Array<any> | []>([]);
     const [category, setCategory] = useState<String>('');
-    const [image, setImage] = useState<String>('');
+    const [images, setImages] = useState<any>([]);
 
     useEffect(() => {
-        // const fetchAges = async () => {
-        //     return await DataStore.query(AgeModel);
-        // }
-        // fetchAges().then(setAgeDB);
-        //
-        // const fetchCategory = async () => {
-        //     return await DataStore.query(CategoryModel);
-        // }
-        // fetchCategory().then(setCategories);
+        const fetchAges = async () => {
+            return await DataStore.query(AgeType);
+        }
+        fetchAges().then(setAgeDB);
+
+        const fetchCategory = async () => {
+            return await DataStore.query(CategoryModel);
+        }
+        fetchCategory().then(setCategories);
     }, []);
 
     const savePet = async () => {
+        const userData = await Auth.currentAuthenticatedUser();
+
+        //Is saving, it's beutiful.
         const newPet = await DataStore.save(new Pet({
-            userID: 'd7bb20e9-a84a-4533-8973-14542975d1a6',
+            userID: userData.attributes.sub,
             petCategoryId: category.toString(),
-            Age: yearMonth.toString(),
+            petAgeTypeId: yearMonth.toString(),
             name,
             age: Number(age),
-            weight: Number(weight),
+            weight: weight.toString(),
             sex,
             breed,
             address,
-            about,
+            abount: about,
         }));
+
     }
 
     const getBlob = async (uri: any) => {
@@ -67,33 +66,54 @@ function RegistrationScreen() {
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
-        if (!image) {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            allowsMultipleSelection: true,
+        });
+
+        if (!result.cancelled) {
+            let imagensSelected;
+            imagensSelected = result.selected?.map((item: any) => {
+                return {uri: item.uri};
             });
 
-            if (!result.cancelled) {
-                setImage(result.uri);
+            if (result.uri !== undefined) {
+                imagensSelected = [{uri: result.uri}];
             }
-        } else {
-            const blob = await getBlob(image);
-            const {key} = await Storage.put(`${uuid.v4()}.png`, blob);
-            console.log(key);
+
+            setImages(imagensSelected);
         }
+    };
+
+    const updateImage = async () => {
+
     };
 
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.containerImage}>
-                {image && (
-                    <Image source={{uri: image}} style={styles.image}/>
-                )}
-                <TouchableOpacity style={styles.containerIcon} onPress={pickImage}>
-                    <AntDesign name={image ? 'cloudupload' : 'pluscircle'} size={20} color={Colors.light.primary}/>
-                </TouchableOpacity>
+            <View style={styles.containerImages}>
+                <View style={styles.containerImage}>
+                    <TouchableOpacity style={styles.containerIcon} onPress={pickImage}>
+                        <AntDesign name='pluscircle' size={20} color={Colors.light.primary}/>
+                    </TouchableOpacity>
+                </View>
+                <FlatList
+                    data={images}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    ItemSeparatorComponent={() => <View style={{width: 2.5}}/>}
+                    renderItem={(item: any, index: number) => (
+                        <View style={styles.containerImage} key={index}>
+                            <Image source={{uri: item.item.uri}} style={styles.image}/>
+                            {/*<TouchableOpacity style={styles.containerIcon} onPress={updateImage}>*/}
+                            {/*    <AntDesign name='minuscircle' size={20} color={Colors.light.primary}/>*/}
+                            {/*</TouchableOpacity>*/}
+                        </View>
+                    )}
+                />
             </View>
 
             <View style={styles.containerForm}>
@@ -126,11 +146,11 @@ function RegistrationScreen() {
                             }
                             style={styles.picker}
                         >
-                            {/*{ageDB?.map((item: AgeModel) => {*/}
-                            {/*    if (item?.type) {*/}
-                            {/*        return (<Picker.Item label={item?.type} value={item.id} key={item.id}/>);*/}
-                            {/*    }*/}
-                            {/*})}*/}
+                            {ageDB?.map((item: AgeType) => {
+                                if (item?.type) {
+                                    return (<Picker.Item label={item?.type} value={item.id} key={item.id}/>);
+                                }
+                            })}
                         </Picker>
                     </View>
                 </View>
@@ -151,11 +171,11 @@ function RegistrationScreen() {
                             marginBottom: 10,
                         }]}
                     >
-                        {/*{categories?.map((item: CategoryModel) => {*/}
-                        {/*    if (item?.name) {*/}
-                        {/*        return (<Picker.Item label={item?.name} value={item?.id} key={item.id}/>);*/}
-                        {/*    }*/}
-                        {/*})}*/}
+                        {categories?.map((item: CategoryModel) => {
+                            if (item?.name) {
+                                return (<Picker.Item label={item?.name} value={item?.id} key={item.id}/>);
+                            }
+                        })}
                     </Picker>
                 </View>
 
@@ -214,7 +234,7 @@ function RegistrationScreen() {
                         style={[styles.input, {height: 80}]}
                     />
                 </View>
-                <ButtonIcon text='Save' onPress={() => Auth.signOut()}/>
+                <ButtonIcon text='Save' onPress={savePet}/>
             </View>
         </ScrollView>
     );

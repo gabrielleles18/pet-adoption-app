@@ -1,10 +1,6 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
-
-type FavoritesMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
 type PetMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -18,7 +14,11 @@ type CategoryMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type AgeMetaData = {
+type AgeTypeMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type FavoritesMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -26,66 +26,42 @@ type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type EagerFavorites = {
-  readonly id: string;
-  readonly Pet?: Pet | null;
-  readonly userID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  readonly favoritesPetId?: string | null;
-}
-
-type LazyFavorites = {
-  readonly id: string;
-  readonly Pet: AsyncItem<Pet | undefined>;
-  readonly userID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  readonly favoritesPetId?: string | null;
-}
-
-export declare type Favorites = LazyLoading extends LazyLoadingDisabled ? EagerFavorites : LazyFavorites
-
-export declare const Favorites: (new (init: ModelInit<Favorites, FavoritesMetaData>) => Favorites) & {
-  copyOf(source: Favorites, mutator: (draft: MutableModel<Favorites, FavoritesMetaData>) => MutableModel<Favorites, FavoritesMetaData> | void): Favorites;
-}
-
 type EagerPet = {
   readonly id: string;
   readonly name?: string | null;
   readonly age?: number | null;
-  readonly weight?: number | null;
+  readonly weight?: string | null;
   readonly sex?: string | null;
   readonly breed?: string | null;
   readonly address?: string | null;
+  readonly abount?: string | null;
   readonly Images?: (Images | null)[] | null;
   readonly Category?: Category | null;
-  readonly about?: string | null;
   readonly userID: string;
-  readonly Age?: Age | null;
+  readonly AgeType?: AgeType | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
-  readonly petAgeId?: string | null;
+  readonly petAgeTypeId?: string | null;
 }
 
 type LazyPet = {
   readonly id: string;
   readonly name?: string | null;
   readonly age?: number | null;
-  readonly weight?: number | null;
+  readonly weight?: string | null;
   readonly sex?: string | null;
   readonly breed?: string | null;
   readonly address?: string | null;
+  readonly abount?: string | null;
   readonly Images: AsyncCollection<Images>;
   readonly Category: AsyncItem<Category | undefined>;
-  readonly about?: string | null;
   readonly userID: string;
-  readonly Age: AsyncItem<Age | undefined>;
+  readonly AgeType: AsyncItem<AgeType | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
-  readonly petAgeId?: string | null;
+  readonly petAgeTypeId?: string | null;
 }
 
 export declare type Pet = LazyLoading extends LazyLoadingDisabled ? EagerPet : LazyPet
@@ -138,24 +114,48 @@ export declare const Category: (new (init: ModelInit<Category, CategoryMetaData>
   copyOf(source: Category, mutator: (draft: MutableModel<Category, CategoryMetaData>) => MutableModel<Category, CategoryMetaData> | void): Category;
 }
 
-type EagerAge = {
+type EagerAgeType = {
   readonly id: string;
   readonly type?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyAge = {
+type LazyAgeType = {
   readonly id: string;
   readonly type?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Age = LazyLoading extends LazyLoadingDisabled ? EagerAge : LazyAge
+export declare type AgeType = LazyLoading extends LazyLoadingDisabled ? EagerAgeType : LazyAgeType
 
-export declare const Age: (new (init: ModelInit<Age, AgeMetaData>) => Age) & {
-  copyOf(source: Age, mutator: (draft: MutableModel<Age, AgeMetaData>) => MutableModel<Age, AgeMetaData> | void): Age;
+export declare const AgeType: (new (init: ModelInit<AgeType, AgeTypeMetaData>) => AgeType) & {
+  copyOf(source: AgeType, mutator: (draft: MutableModel<AgeType, AgeTypeMetaData>) => MutableModel<AgeType, AgeTypeMetaData> | void): AgeType;
+}
+
+type EagerFavorites = {
+  readonly id: string;
+  readonly userID: string;
+  readonly Pet?: Pet | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly favoritesPetId?: string | null;
+}
+
+type LazyFavorites = {
+  readonly id: string;
+  readonly userID: string;
+  readonly Pet: AsyncItem<Pet | undefined>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly favoritesPetId?: string | null;
+}
+
+export declare type Favorites = LazyLoading extends LazyLoadingDisabled ? EagerFavorites : LazyFavorites
+
+export declare const Favorites: (new (init: ModelInit<Favorites, FavoritesMetaData>) => Favorites) & {
+  copyOf(source: Favorites, mutator: (draft: MutableModel<Favorites, FavoritesMetaData>) => MutableModel<Favorites, FavoritesMetaData> | void): Favorites;
 }
 
 type EagerUser = {
