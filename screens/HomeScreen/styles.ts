@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     },
     feed:{
         marginTop: 30,
+        paddingBottom: 140
     },
     flatList:{
         flexGrow: 0,

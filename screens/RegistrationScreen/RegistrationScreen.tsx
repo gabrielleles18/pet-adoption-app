@@ -7,7 +7,7 @@ import Colors from "../../constants/Colors";
 import {Picker} from '@react-native-picker/picker';
 import ButtonIcon from "../../components/ButtonIcon";
 import {DataStore} from "@aws-amplify/datastore";
-import {AgeType, Pet, Category as CategoryModel} from "../../src/models";
+import {AgeType, Pet, Category as CategoryModel, Images as ImagesModel} from "../../src/models";
 import * as ImagePicker from "expo-image-picker";
 import {Storage} from "@aws-amplify/storage"
 import uuid from 'react-native-uuid';
@@ -40,6 +40,11 @@ function RegistrationScreen() {
         fetchCategory().then(setCategories);
     }, []);
 
+    const getBlob = async (uri: any) => {
+        const response = await fetch(uri);
+        return await response.blob();
+    }
+
     const savePet = async () => {
         const userData = await Auth.currentAuthenticatedUser();
 
@@ -57,11 +62,17 @@ function RegistrationScreen() {
             abount: about,
         }));
 
-    }
+        if (newPet?.userID !== undefined) {
+            images?.map(async (image: any) => {
+                const blob = await getBlob(image?.uri);
+                const {key} = await Storage.put(`${uuid.v4()}.png`, blob);
 
-    const getBlob = async (uri: any) => {
-        const response = await fetch(uri);
-        return await response.blob();
+                const newImage = await DataStore.save(new ImagesModel({
+                    imageUri: key.toString(),
+                    petID: newPet?.userID.toString(),
+                }));
+            });
+        }
     }
 
     const pickImage = async () => {

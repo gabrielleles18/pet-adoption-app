@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, Dimensions} from "react-native";
 import Colors from "../../constants/Colors";
 import {getStatusBarHeight} from "react-native-iphone-x-helper";
 
@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
         paddingVertical: getStatusBarHeight() + 10,
     },
     image: {
-        width: '100%',
+        width: Dimensions.get('window').width,
         height: 300,
-        borderBottomRightRadius: 30,
         borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
     },
     content: {
         padding: 20,
