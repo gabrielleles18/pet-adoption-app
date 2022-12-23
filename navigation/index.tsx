@@ -17,6 +17,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PetScreen from '../screens/PetScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
@@ -44,6 +45,7 @@ function RootNavigator() {
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{headerShown: false}}/>
             <Stack.Screen name="Pet" component={PetScreen} options={{headerShown: false}}/>
             <Stack.Screen name="NotFound" component={NotFoundScreen} options={{title: 'Oops!'}}/>
+            <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Edit Profile'}}/>
         </Stack.Navigator>
     );
 }

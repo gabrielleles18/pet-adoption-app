@@ -36,6 +36,11 @@ const linking: LinkingOptions<RootStackParamList> = {
                             PetScreen: 'pet',
                         },
                     },
+                    Profile: {
+                        screens: {
+                            ProfileScreen: 'profile',
+                        }
+                    }
                 },
             },
             Modal: 'modal',

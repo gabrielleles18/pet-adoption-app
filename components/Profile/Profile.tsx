@@ -9,9 +9,10 @@ interface ProfileProps {
     hiddenSocial?: boolean;
     hiddenName?: boolean;
     userId: string;
+    onPress?: () => void;
 }
 
-export default function Profile({userId, hiddenSocial = false, hiddenName = false }: ProfileProps) {
+export default function Profile({userId, hiddenSocial = false, hiddenName = false, onPress}: ProfileProps) {
     const [name, setName] = useState<String>('');
 
     useEffect(() => {
@@ -27,9 +28,11 @@ export default function Profile({userId, hiddenSocial = false, hiddenName = fals
 
     return (
         <View style={styles.container}>
-            <Image
-                source={{uri: 'https://learn.microsoft.com/answers/storage/attachments/209536-360-f-364211147-1qglvxv1tcq0ohz3fawufrtonzz8nq3e.jpg'}}
-                style={styles.image}/>
+            <TouchableOpacity onPress={onPress}>
+                <Image
+                    source={{uri: 'https://learn.microsoft.com/answers/storage/attachments/209536-360-f-364211147-1qglvxv1tcq0ohz3fawufrtonzz8nq3e.jpg'}}
+                    style={styles.image}/>
+            </TouchableOpacity>
             {!hiddenName && (
                 <View style={styles.info}>
                     <Text style={styles.owner}>Owner by:</Text>

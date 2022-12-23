@@ -8,10 +8,14 @@ import {Feather} from '@expo/vector-icons';
 import {DataStore} from '@aws-amplify/datastore';
 import {Category as CategoryModel, Pet} from '../../src/models';
 import {useEffect, useState} from "react";
+import {useNavigation} from "@react-navigation/native";
+import {Auth} from "aws-amplify";
 
 export default function HomeScreen() {
     const [categories, setCategories] = useState<CategoryModel[]>([]);
     const [pets, setPets] = useState<Pet[]>([]);
+    const [userId, setUserId] = useState<String>('');
+    const navigation = useNavigation();
 
     useEffect(() => {
         //Categories
@@ -25,6 +29,14 @@ export default function HomeScreen() {
             return await DataStore.query(Pet);
         };
         fetchPets().then(setPets);
+
+        //User
+        const fetchUser = async () => {
+            const userData = await Auth.currentAuthenticatedUser();
+            return userData.attributes.sub.toString();
+        }
+
+        fetchUser().then(setUserId);
     }, []);
 
     return (
@@ -42,7 +54,12 @@ export default function HomeScreen() {
                     />
                     <Ionicons name="md-close-outline" size={22} color="#3C3C43"/>
                 </View>
-                <Profile hiddenName={true} hiddenSocial={true}/>
+                <Profile
+                    hiddenName={true}
+                    hiddenSocial={true}
+                    onPress={() => navigation.navigate('Profile', {userId: userId})}
+                    userId={userId}
+                />
             </View>
 
             <View style={styles.searchAnother}>
@@ -71,6 +88,7 @@ export default function HomeScreen() {
                 <FlatList
                     columnWrapperStyle={{justifyContent: 'space-between'}}
                     data={pets}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({item}) => <Feed data={item}/>}
                     ItemSeparatorComponent={
                         () => <View style={{width: 10}}/>
