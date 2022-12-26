@@ -162,7 +162,7 @@ type EagerUser = {
   readonly id: string;
   readonly name?: string | null;
   readonly userName?: string | null;
-  readonly phone?: number | null;
+  readonly phone?: string | null;
   readonly state?: string | null;
   readonly image?: string | null;
   readonly email?: string | null;
@@ -176,7 +176,7 @@ type LazyUser = {
   readonly id: string;
   readonly name?: string | null;
   readonly userName?: string | null;
-  readonly phone?: number | null;
+  readonly phone?: string | null;
   readonly state?: string | null;
   readonly image?: string | null;
   readonly email?: string | null;

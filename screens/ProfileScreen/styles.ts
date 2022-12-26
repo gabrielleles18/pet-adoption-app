@@ -7,7 +7,33 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: '#ffffff',
-        paddingVertical: 20
+        paddingVertical: 20,
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        borderRadius: 10
+    },
+    containerImage: {
+        width: 120,
+        height: 130,
+        elevation: 3,
+        borderRadius: 10,
+        backgroundColor: '#D9D9D9',
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+        alignSelf: 'center',
+    },
+    containerIcon: {
+        width: 35,
+        height: 35,
+        backgroundColor: Colors.light.primaryLightLight,
+        borderRadius: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     containerForm: {
         flex: 1,

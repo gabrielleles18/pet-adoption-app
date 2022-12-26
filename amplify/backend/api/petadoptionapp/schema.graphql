@@ -28,7 +28,7 @@ type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   userName: String
-  phone: Int
+  phone: String
   state: String
   image: String
   email: String

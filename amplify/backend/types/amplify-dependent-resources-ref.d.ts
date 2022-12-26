@@ -29,7 +29,8 @@ export type AmplifyDependentResourcesAttributes = {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
-            "Region": "string"
+            "Region": "string",
+            "LambdaExecutionRoleArn": "string"
         }
     }
 }

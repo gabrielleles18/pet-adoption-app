@@ -99,10 +99,6 @@ function RegistrationScreen() {
         }
     };
 
-    const updateImage = async () => {
-
-    };
-
     return (
         <ScrollView style={styles.container}>
             <View style={styles.containerImages}>

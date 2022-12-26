@@ -22,7 +22,7 @@
       "function": {
         "petadoptionappPostConfirmation": {
           "deploymentBucketName": "amplify-petadoptionapp-dev-151935-deployment",
-          "s3Key": "amplify-builds/petadoptionappPostConfirmation-334f335a496c6b725465-build.zip"
+          "s3Key": "amplify-builds/petadoptionappPostConfirmation-344e376d6b4c7a515674-build.zip"
         }
       },
       "api": {
