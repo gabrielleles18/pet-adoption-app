@@ -54,9 +54,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         paddingBottom: 140
     },
-    flatList:{
-        flexGrow: 0,
-    }
 });
 
 export default styles

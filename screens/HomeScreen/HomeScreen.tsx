@@ -39,6 +39,20 @@ export default function HomeScreen() {
         fetchUser().then(setUserId);
     }, []);
 
+    const headerFlatList = () => {
+        return (
+            <FlatList
+                data={categories}
+                renderItem={({item}) => <Category data={item}/>}
+                ItemSeparatorComponent={
+                    () => <View style={{width: 15}}/>
+                }
+                horizontal
+                showsHorizontalScrollIndicator={false}
+            />
+        );
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -73,30 +87,18 @@ export default function HomeScreen() {
                 </TouchableOpacity>
             </View>
 
+
             <FlatList
-                data={categories}
-                renderItem={({item}) => <Category data={item}/>}
+                columnWrapperStyle={{justifyContent: 'space-between'}}
+                data={pets}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item}) => <Feed data={item}/>}
                 ItemSeparatorComponent={
                     () => <View style={{width: 10}}/>
                 }
-                horizontal
-                style={styles.flatList}
-                showsHorizontalScrollIndicator={false}
+                numColumns={2}
+                ListHeaderComponent={headerFlatList}
             />
-            <View style={styles.feed}>
-
-                <FlatList
-                    columnWrapperStyle={{justifyContent: 'space-between'}}
-                    data={pets}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => <Feed data={item}/>}
-                    ItemSeparatorComponent={
-                        () => <View style={{width: 10}}/>
-                    }
-                    style={styles.flatList}
-                    numColumns={2}
-                />
-            </View>
         </SafeAreaView>
     );
 }

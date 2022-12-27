@@ -1,21 +1,23 @@
 import {CategoryContainer, Title, ContainerImage} from './styles';
-import {Image} from "react-native";
-import ImageDogGray from "../../assets/images/category/dog-gray.png";
 import {Category as CategoryModel} from '../../src/models';
-import {useState} from "react";
+import React, {useState} from "react";
+import {S3Image} from "aws-amplify-react-native";
 
 interface CategoryProps {
     data: CategoryModel;
 }
 
-export default function Category({data: {name}}: CategoryProps) {
+export default function Category({data: {name, image}}: CategoryProps) {
     const [selected, setSelected] = useState(false);
     const isActive = true;
 
     return (
         <CategoryContainer onPress={() => setSelected(!selected)}>
             <ContainerImage isActive={selected ? isActive : false}>
-                <Image source={ImageDogGray} style={{width: 35}} resizeMode='contain'/>
+                <S3Image imgKey={image}
+                         style={{width: 50, height: 50}}
+                         resizeMode='contain'
+                />
             </ContainerImage>
             <Title>{name}</Title>
         </CategoryContainer>

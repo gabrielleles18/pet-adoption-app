@@ -3,12 +3,14 @@ import styled from 'styled-components/native';
 import Colors from "../../constants/Colors";
 
 export const CategoryContainer = styled.TouchableOpacity`
-  width: 65px;
+  width: 75px;
+  height: 75px;
+  margin-bottom: 50px;
 `;
 
 export const ContainerImage = styled.View`
-  width: 65px;
-  height: 65px;
+  width: 75px;
+  height: 75px;
   background-color: ${(props: any) => props.isActive ? Colors.light.green : '#fff'};
   padding: 15px;
   border-radius: 15px;
