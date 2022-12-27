@@ -4,9 +4,11 @@ import {AntDesign} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import {Ionicons} from '@expo/vector-icons';
 import {Text} from '../Themed';
-import {Pet} from '../../src/models';
-import {useState} from "react";
+import {Images as ImagesModel, Pet} from '../../src/models';
+import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
+import {DataStore} from "aws-amplify";
+import {S3Image} from "aws-amplify-react-native";
 
 interface FeedProps {
     data: Pet,
@@ -14,6 +16,7 @@ interface FeedProps {
 
 export default function Feed({data}: FeedProps) {
     const [isFavorite, setIsFavorite] = useState(false);
+    const [imagen, setImagen] = useState([]);
     const navigation = useNavigation();
     const {sex, breed, name} = data;
 
@@ -23,13 +26,26 @@ export default function Feed({data}: FeedProps) {
         navigation.navigate('Pet', {data});
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const imagesData = await DataStore.query(ImagesModel, item => item.petID('eq', data.userID), {
+                limit: 1
+            });
+            if (imagesData.length > 0) {
+                setImagen(imagesData[0].imageUri);
+            }
+        }
+
+        fetchData().then();
+    }, []);
+    console.log(imagen);
+
     return (
         <FeedContainer onPress={() => onPress({data})}>
             <ImageContainer>
-                <Image
-                    style={{flex: 1,}}
-                    source={{uri: imageUri}}
-                    resizeMode="cover"
+                <S3Image
+                    imgKey={imagen}
+                    resizeMode='cover'
                 />
                 <Favorite onPress={() => setIsFavorite(!isFavorite)}>
                     <AntDesign
