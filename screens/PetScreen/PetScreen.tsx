@@ -14,13 +14,13 @@ import {S3Image} from "aws-amplify-react-native";
 export default function PetScreen() {
     let favorite = false;
     const route = useRoute();
-    const {userID, name, breed, age, weight, sex, address, abount, images} = route?.params?.data;
+    const {id, userID, name, breed, age, weight, sex, address, abount, images} = route?.params?.data;
     const navigation = useNavigation();
     const [imagens, setImagens] = useState<Array<any>>([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const imagesData = await DataStore.query(ImagesModel, item => item.petID('eq', userID), {
+            const imagesData = await DataStore.query(ImagesModel, item => item.petID('eq', id), {
                 limit: 10
             });
             setImagens(imagesData);

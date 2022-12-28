@@ -16,7 +16,7 @@ interface FeedProps {
 
 export default function Feed({data}: FeedProps) {
     const [isFavorite, setIsFavorite] = useState(false);
-    const [imagen, setImagen] = useState([]);
+    const [imagen, setImagen] = useState('');
     const navigation = useNavigation();
     const {sex, breed, name} = data;
 
@@ -28,7 +28,7 @@ export default function Feed({data}: FeedProps) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const imagesData = await DataStore.query(ImagesModel, item => item.petID('eq', data.userID), {
+            const imagesData = await DataStore.query(ImagesModel, item => item.petID('eq', data.id), {
                 limit: 1
             });
             if (imagesData.length > 0) {
@@ -38,12 +38,12 @@ export default function Feed({data}: FeedProps) {
 
         fetchData().then();
     }, []);
-    console.log(imagen);
 
     return (
         <FeedContainer onPress={() => onPress({data})}>
             <ImageContainer>
                 <S3Image
+                    style={{width: '100%', height: '100%'}}
                     imgKey={imagen}
                     resizeMode='cover'
                 />

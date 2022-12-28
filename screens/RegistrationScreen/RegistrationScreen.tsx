@@ -69,7 +69,7 @@ function RegistrationScreen() {
 
                 const newImage = await DataStore.save(new ImagesModel({
                     imageUri: key.toString(),
-                    petID: newPet?.userID.toString(),
+                    petID: newPet?.id.toString(),
                 }));
             });
         }
