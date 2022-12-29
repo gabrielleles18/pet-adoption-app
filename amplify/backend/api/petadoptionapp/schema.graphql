@@ -5,12 +5,13 @@ type Pet @model @auth(rules: [{allow: public}]) {
   weight: String
   sex: String
   breed: String
-  address: String
   abount: String
   Images: [Images] @hasMany(indexName: "byPet", fields: ["id"])
   Category: Category @hasOne
   userID: ID! @index(name: "byUser")
   AgeType: AgeType @hasOne
+  city: Int
+  stade: Int
 }
 
 type Favorites @model @auth(rules: [{allow: public}]) {

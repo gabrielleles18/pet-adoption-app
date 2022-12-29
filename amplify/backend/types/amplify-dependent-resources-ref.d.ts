@@ -18,12 +18,6 @@ export type AmplifyDependentResourcesAttributes = {
             "CreatedSNSRole": "string"
         }
     },
-    "storage": {
-        "s3petadoptionappstorage174f90ad": {
-            "BucketName": "string",
-            "Region": "string"
-        }
-    },
     "function": {
         "petadoptionappPostConfirmation": {
             "Name": "string",
@@ -31,6 +25,12 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string",
             "Region": "string",
             "LambdaExecutionRoleArn": "string"
+        }
+    },
+    "storage": {
+        "s3petadoptionappstorage174f90ad": {
+            "BucketName": "string",
+            "Region": "string"
         }
     }
 }

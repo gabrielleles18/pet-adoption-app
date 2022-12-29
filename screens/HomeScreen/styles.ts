@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    filter: {
+        backgroundColor: '#eaeaee',
+        padding: 10,
+        marginTop: 10,
+        borderRadius: 8,
+    },
     search: {
         height: 45,
         backgroundColor: '#F6F4F9',
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    feed:{
+    feed: {
         marginTop: 30,
         paddingBottom: 140
     },

@@ -45,13 +45,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "address": {
-                    "name": "address",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "abount": {
                     "name": "abount",
                     "isArray": false,
@@ -107,6 +100,20 @@ export const schema = {
                         "associatedWith": "id",
                         "targetName": "petAgeTypeId"
                     }
+                },
+                "city": {
+                    "name": "city",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "stade": {
+                    "name": "stade",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -588,5 +595,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "e1c4db3fa1456937296b22c7a706902c"
+    "version": "09bde1b8e99f609883d4d163d98a7cee"
 };

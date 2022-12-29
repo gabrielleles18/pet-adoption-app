@@ -13,12 +13,12 @@ import {Storage} from "@aws-amplify/storage"
 import uuid from 'react-native-uuid';
 import {withAuthenticator} from 'aws-amplify-react-native';
 import {Auth} from 'aws-amplify';
+import axios from "axios";
 
 function RegistrationScreen() {
     const [name, setName] = useState('');
     const [sex, setSex] = useState('');
     const [breed, setBreed] = useState('');
-    const [address, setAddress] = useState('');
     const [yearMonth, setYearMonth] = useState<String | ''>('');
     const [weight, setWeight] = useState<Number | 0>(0);
     const [age, setAge] = useState<Number | 0>(0);
@@ -27,6 +27,10 @@ function RegistrationScreen() {
     const [categories, setCategories] = useState<Array<any> | []>([]);
     const [category, setCategory] = useState<String>('');
     const [images, setImages] = useState<any>([]);
+    const [estadosApi, setEstadosApi] = useState<Array<any> | []>([]);
+    const [stade, setStade] = useState<Number>(0);
+    const [cityApi, setCityApi] =useState<Array<any> | []>([]);
+    const [city, setCity] = useState<Number>(0);
 
     useEffect(() => {
         const fetchAges = async () => {
@@ -38,7 +42,24 @@ function RegistrationScreen() {
             return await DataStore.query(CategoryModel);
         }
         fetchCategory().then(setCategories);
+
+        /*ve*/
+        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
+            .then(function (response) {
+                setEstadosApi(response.data);
+            }).catch(function (error) {
+            console.log(error);
+        });
     }, []);
+
+    useEffect(() => {
+        axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${stade}/municipios`)
+            .then(function (response) {
+                setCityApi(response.data);
+            }).catch(function (error) {
+            console.log(error);
+        });
+    }, [stade]);
 
     const getBlob = async (uri: any) => {
         const response = await fetch(uri);
@@ -58,8 +79,9 @@ function RegistrationScreen() {
             weight: weight.toString(),
             sex,
             breed,
-            address,
             abount: about,
+            city: Number(city),
+            stade: Number(stade),
         }));
 
         if (newPet?.userID !== undefined) {
@@ -220,15 +242,53 @@ function RegistrationScreen() {
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Address</Text>
-                    <TextInput
-                        keyboardType='addressCity'
-                        placeholder='Street 129, N 89'
-                        value={address}
-                        onChangeText={address => setAddress(address)}
-                        style={styles.input}
-                    />
+                    <Text style={styles.label}>Stade</Text>
+                    <Picker
+                        selectedValue={stade}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setStade(itemValue)
+                        }
+                        style={[styles.picker, {
+                            width: '100%',
+                            backgroundColor: '#F6F4F9',
+                            height: 42,
+                            borderRadius: 8,
+                            overflow: 'hidden',
+                            marginBottom: 10,
+                        }]}
+                    >
+                        {estadosApi?.map((item: any) => {
+                            if (item?.nome) {
+                                return (<Picker.Item label={item?.nome} value={item?.id} key={item.id}/>);
+                            }
+                        })}
+                    </Picker>
                 </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.label}>City</Text>
+                    <Picker
+                        selectedValue={city}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setCity(itemValue)
+                        }
+                        style={[styles.picker, {
+                            width: '100%',
+                            backgroundColor: '#F6F4F9',
+                            height: 42,
+                            borderRadius: 8,
+                            overflow: 'hidden',
+                            marginBottom: 10,
+                        }]}
+                    >
+                        {cityApi?.map((item: CategoryModel) => {
+                            if (item?.nome) {
+                                return (<Picker.Item label={item?.nome} value={item?.id} key={item.id}/>);
+                            }
+                        })}
+                    </Picker>
+                </View>
+
 
                 <View style={styles.row}>
                     <Text style={styles.label}>About</Text>
@@ -246,18 +306,4 @@ function RegistrationScreen() {
         </ScrollView>
     );
 }
-
-const signUpConfig = {
-    signUpFields: [
-        {
-            label: 'Locale',
-            key: 'locale',
-            required: true,
-            displayOrder: 2,
-            type: 'string',
-            placeholder: 'Enter your email',
-
-        }
-    ]
-};
 export default withAuthenticator(RegistrationScreen);

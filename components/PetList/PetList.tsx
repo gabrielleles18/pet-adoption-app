@@ -31,6 +31,11 @@ export default function PetList() {
                 });
             }
 
+            // if  (false){
+            //     return await DataStore.query(Pet, (item) => item.and(item =>[
+            //         item.petCategoryId('eq', categoryId),
+            //     ]));
+            // }
         };
         fetchPets().then(setPets);
     }, [categoryId]);
