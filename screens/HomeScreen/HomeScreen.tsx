@@ -9,6 +9,7 @@ import CategoryIdProvider from "../../contexts/categoryPet";
 import PetslistProvider from "../../contexts/Petslist";
 import PetList from "../../components/PetList";
 import SearchLocation from "../../components/SearchLocation";
+import Search from "../../components/Search";
 
 export default function HomeScreen() {
     const [userId, setUserId] = useState<String>('');
@@ -40,16 +41,7 @@ export default function HomeScreen() {
                             userId={userId}
                         />
                     </View>
-                    <View style={styles.searchAnother}>
-                        <TextInput
-                            style={styles.input}
-                            // onChangeText={onChangeNumber}
-                            placeholder="Search"
-                        />
-                        <TouchableOpacity style={styles.icon}>
-                            <Feather name="search" size={15} color="white"/>
-                        </TouchableOpacity>
-                    </View>
+                    <Search/>
                     <PetList/>
                 </SafeAreaView>
             </PetslistProvider>
