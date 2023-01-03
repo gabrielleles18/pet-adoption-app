@@ -12,31 +12,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    filter: {
-        backgroundColor: '#eaeaee',
-        padding: 10,
-        marginTop: 10,
-        borderRadius: 8,
-    },
-    search: {
-        height: 45,
-        backgroundColor: '#F6F4F9',
-        borderRadius: 35,
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        paddingVertical: 12,
-        alignItems: 'center',
-        flex: 1,
-        marginHorizontal: 25
-    },
-    input: {
-        flex: 1,
-        marginLeft: 5,
-        fontSize: 14,
-        color: Colors.light.text,
-        fontWeight: '600',
+        alignItems: 'flex-start',
     },
     searchAnother: {
         height: 40,
@@ -47,6 +23,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingLeft: 10,
         marginVertical: 25,
+        zIndex: 9,
     },
     icon: {
         width: 40,
@@ -55,6 +32,14 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.light.primary,
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex: 9,
+    },
+    input: {
+        flex: 1,
+        marginLeft: 5,
+        fontSize: 14,
+        color: Colors.light.text,
+        fontWeight: '600',
     },
     feed: {
         marginTop: 30,

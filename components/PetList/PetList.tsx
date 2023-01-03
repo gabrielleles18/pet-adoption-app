@@ -4,13 +4,12 @@ import Category from "../Category";
 import {useContext, useEffect, useState} from "react";
 import {DataStore} from "@aws-amplify/datastore";
 import {Category as CategoryModel, Pet} from "../../src/models";
-import {CategoryIdContext} from "../../contexts/categoryPet";
+import {PetslistContext} from "../../contexts/Petslist";
 
 export default function PetList() {
     const [categories, setCategories] = useState<CategoryModel[]>([]);
-    const [pets, setPets] = useState<Pet[]>([]);
-    // @ts-ignore
-    const {categoryId, setCategoryId} = useContext(CategoryIdContext);
+    //@ts-ignore
+    const {petslist, setPetslist} = useContext(PetslistContext);
 
     useEffect(() => {
         //Categories
@@ -20,31 +19,12 @@ export default function PetList() {
         fetchCategories().then(setCategories);
     }, []);
 
-    useEffect(() => {
-        //Pets
-        const fetchPets = async () => {
-            if (categoryId === '') {
-                return await DataStore.query(Pet);
-            } else {
-                return await DataStore.query(Pet, item => item.petCategoryId('eq', categoryId), {
-                    limit: 10
-                });
-            }
-
-            // if  (false){
-            //     return await DataStore.query(Pet, (item) => item.and(item =>[
-            //         item.petCategoryId('eq', categoryId),
-            //     ]));
-            // }
-        };
-        fetchPets().then(setPets);
-    }, [categoryId]);
-
     return (
         <>
             <FlatList
+                style={{zIndex: 9}}
                 columnWrapperStyle={{justifyContent: 'space-between'}}
-                data={pets}
+                data={petslist}
                 showsVerticalScrollIndicator={false}
                 renderItem={({item}) => <Feed data={item}/>}
                 ItemSeparatorComponent={
