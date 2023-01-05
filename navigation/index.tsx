@@ -8,7 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Pressable, View} from 'react-native';
+import {ColorSchemeName, Pressable, Text, View} from 'react-native';
 import {AntDesign} from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
@@ -18,6 +18,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PetScreen from '../screens/PetScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import FavoriteScreen from '../screens/FavoriteScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
@@ -46,6 +47,7 @@ function RootNavigator() {
             <Stack.Screen name="Pet" component={PetScreen} options={{headerShown: false}}/>
             <Stack.Screen name="NotFound" component={NotFoundScreen} options={{title: 'Oops!'}}/>
             <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Edit Profile'}}/>
+            {/*<Stack.Screen name="Favorite" component={FavoriteScreen} options={{title: 'Favorite'}}/>*/}
         </Stack.Navigator>
     );
 }
@@ -100,27 +102,36 @@ function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="TabOne"
-                component={TabOneScreen}
-                options={({navigation}: RootTabScreenProps<'TabOne'>) => ({
+                name="Favorite"
+                component={FavoriteScreen}
+                options={{
                     title: '',
-                    tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,
-                    headerRight: () => (
-                        <Pressable
-                            onPress={() => navigation.navigate('Modal')}
-                            style={({pressed}) => ({
-                                opacity: pressed ? 0.5 : 1,
-                            })}>
-                            <FontAwesome
-                                name="info-circle"
-                                size={25}
-                                color={Colors[colorScheme].text}
-                                style={{marginRight: 15}}
-                            />
-                        </Pressable>
-                    ),
-                })}
+                    headerTitle: 'Favorite',
+                    tabBarIcon: ({color}) => <TabBarIcon name="heart" color={color}/>,
+                }}
             />
+            {/*<BottomTab.Screen*/}
+            {/*    name="TabOne"*/}
+            {/*    component={TabOneScreen}*/}
+            {/*    options={({navigation}: RootTabScreenProps<'TabOne'>) => ({*/}
+            {/*        title: '',*/}
+            {/*        tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,*/}
+            {/*        headerRight: () => (*/}
+            {/*            <Pressable*/}
+            {/*                onPress={() => navigation.navigate('Modal')}*/}
+            {/*                style={({pressed}) => ({*/}
+            {/*                    opacity: pressed ? 0.5 : 1,*/}
+            {/*                })}>*/}
+            {/*                <FontAwesome*/}
+            {/*                    name="info-circle"*/}
+            {/*                    size={25}*/}
+            {/*                    color={Colors[colorScheme].text}*/}
+            {/*                    style={{marginRight: 15}}*/}
+            {/*                />*/}
+            {/*            </Pressable>*/}
+            {/*        ),*/}
+            {/*    })}*/}
+            {/*/>*/}
         </BottomTab.Navigator>
     );
 }

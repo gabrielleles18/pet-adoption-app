@@ -390,13 +390,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "userID": {
-                    "name": "userID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "Pet": {
                     "name": "Pet",
                     "isArray": false,
@@ -409,6 +402,20 @@ export const schema = {
                         "connectionType": "HAS_ONE",
                         "associatedWith": "id",
                         "targetName": "favoritesPetId"
+                    }
+                },
+                "UserFavorite": {
+                    "name": "UserFavorite",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id",
+                        "targetName": "favoritesUserFavoriteId"
                     }
                 },
                 "createdAt": {
@@ -433,6 +440,13 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
+                },
+                "favoritesUserFavoriteId": {
+                    "name": "favoritesUserFavoriteId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -441,15 +455,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byUser",
-                        "fields": [
-                            "userID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -521,20 +526,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Favorites": {
-                    "name": "Favorites",
-                    "isArray": true,
-                    "type": {
-                        "model": "Favorites"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "userID"
-                    }
-                },
                 "Pets": {
                     "name": "Pets",
                     "isArray": true,
@@ -595,5 +586,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "09bde1b8e99f609883d4d163d98a7cee"
+    "version": "111e8cd8a6a88bef886c363bd68f72cd"
 };

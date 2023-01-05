@@ -138,20 +138,22 @@ export declare const AgeType: (new (init: ModelInit<AgeType, AgeTypeMetaData>) =
 
 type EagerFavorites = {
   readonly id: string;
-  readonly userID: string;
   readonly Pet?: Pet | null;
+  readonly UserFavorite?: User | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly favoritesPetId?: string | null;
+  readonly favoritesUserFavoriteId?: string | null;
 }
 
 type LazyFavorites = {
   readonly id: string;
-  readonly userID: string;
   readonly Pet: AsyncItem<Pet | undefined>;
+  readonly UserFavorite: AsyncItem<User | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly favoritesPetId?: string | null;
+  readonly favoritesUserFavoriteId?: string | null;
 }
 
 export declare type Favorites = LazyLoading extends LazyLoadingDisabled ? EagerFavorites : LazyFavorites
@@ -168,7 +170,6 @@ type EagerUser = {
   readonly state?: string | null;
   readonly image?: string | null;
   readonly email?: string | null;
-  readonly Favorites?: (Favorites | null)[] | null;
   readonly Pets?: (Pet | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -182,7 +183,6 @@ type LazyUser = {
   readonly state?: string | null;
   readonly image?: string | null;
   readonly email?: string | null;
-  readonly Favorites: AsyncCollection<Favorites>;
   readonly Pets: AsyncCollection<Pet>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

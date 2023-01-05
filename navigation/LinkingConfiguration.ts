@@ -40,7 +40,13 @@ const linking: LinkingOptions<RootStackParamList> = {
                         screens: {
                             ProfileScreen: 'profile',
                         }
+                    },
+                    Favorite: {
+                        screens: {
+                            FavoriteScreen: 'favorite',
+                        }
                     }
+
                 },
             },
             Modal: 'modal',

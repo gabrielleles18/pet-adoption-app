@@ -16,8 +16,8 @@ type Pet @model @auth(rules: [{allow: public}]) {
 
 type Favorites @model @auth(rules: [{allow: public}]) {
   id: ID!
-  userID: ID! @index(name: "byUser")
   Pet: Pet @hasOne
+  UserFavorite: User @hasOne
 }
 
 type AgeType @model @auth(rules: [{allow: public}]) {
@@ -33,7 +33,6 @@ type User @model @auth(rules: [{allow: public}]) {
   state: String
   image: String
   email: String
-  Favorites: [Favorites] @hasMany(indexName: "byUser", fields: ["id"])
   Pets: [Pet] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
