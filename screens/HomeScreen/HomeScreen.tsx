@@ -12,6 +12,9 @@ import SearchLocation from "../../components/SearchLocation";
 import Search from "../../components/Search";
 import {BorderlessButton} from "react-native-gesture-handler";
 import {getStatusBarHeight} from "react-native-iphone-x-helper";
+import {MaterialIcons} from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
+import {FontAwesome} from '@expo/vector-icons';
 
 export default function HomeScreen() {
     const [userId, setUserId] = useState<String>('');
@@ -35,26 +38,21 @@ export default function HomeScreen() {
         <View style={styles.father}>
             <View style={styles.menu}>
                 <View style={styles.itens}>
-                    <TouchableOpacity>
-                        <View style={styles.row}>
-                            <Feather
-                                name='feather'
-                                color='black'
-                                size={24}
-                                style={styles.menuIcons}
-                            />
-                            <Text style={styles.menuTitle}>Titulo</Text>
-                        </View>
-                        <View style={styles.row}>
-                            <Feather
-                                name='feather'
-                                color='black'
-                                size={24}
-                                style={styles.menuIcons}
-                            />
-                            <Text style={styles.menuTitle}>Titulo 23</Text>
-                        </View>
-                        <View style={styles.line}/>
+                    <TouchableOpacity style={styles.row}>
+                        <MaterialIcons name="pets" size={24} color="black" style={styles.menuIcons}/>
+                        <Text style={styles.menuTitle}>Adoption</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.row} onPress={() => navigation.navigate('Registration')}>
+                        <AntDesign name="plussquare" size={24} color="black" style={styles.menuIcons}/>
+                        <Text style={styles.menuTitle}>Add pet</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.row} onPress={() => navigation.navigate('Profile', {userId: userId})}>
+                        <FontAwesome name="user" size={24} color="black" style={styles.menuIcons}/>
+                        <Text style={styles.menuTitle}>Profile</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.row}>
+                        <Ionicons name="settings" size={24} color="black" style={styles.menuIcons}/>
+                        <Text style={styles.menuTitle}>Settings</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity

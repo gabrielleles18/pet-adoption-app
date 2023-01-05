@@ -25,55 +25,55 @@ export default function ProfileScreen() {
 
     const route = useRoute();
     // @ts-ignore
-    const {userId} = route?.params;
+    // const {userId} = route?.params;
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const data = await DataStore.query(UserModel, item => item.id('eq', userId), {limit: 1});
-            return data[0];
-        }
-        fetchUser().then((data) => {
-            setUserData(data);
-            setName(data?.name);
-            setUserName(data?.userName);
-            setEmail(data?.email);
-            setTelefone(data?.phone);
-        });
-    }, []);
-    const updateUser = async () => {
-        const blob = await getBlob(image);
-        const {key} = await Storage.put(`${uuid.v4()}.png`, blob);
-
-        await DataStore.save(UserModel.copyOf(userData, updatedUserModel => {
-            updatedUserModel.name = name;
-            updatedUserModel.phone = telefone;
-            updatedUserModel.image = key;
-        }));
-    }
-
-    const getBlob = async (uri: any) => {
-        const response = await fetch(uri);
-        return await response.blob();
-    }
-
-    const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            aspect: [4, 3],
-            quality: 1,
-        });
-
-        if (!result.cancelled) {
-            console.log(result);
-
-            if (result.uri !== undefined) {
-                setImage(result.uri);
-            }
-        }
-    };
-
-    console.log(userData);
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         const data = await DataStore.query(UserModel, item => item.id('eq', userId), {limit: 1});
+    //         return data[0];
+    //     }
+    //     fetchUser().then((data) => {
+    //         setUserData(data);
+    //         setName(data?.name);
+    //         setUserName(data?.userName);
+    //         setEmail(data?.email);
+    //         setTelefone(data?.phone);
+    //     });
+    // }, []);
+    // const updateUser = async () => {
+    //     const blob = await getBlob(image);
+    //     const {key} = await Storage.put(`${uuid.v4()}.png`, blob);
+    //
+    //     await DataStore.save(UserModel.copyOf(userData, updatedUserModel => {
+    //         updatedUserModel.name = name;
+    //         updatedUserModel.phone = telefone;
+    //         updatedUserModel.image = key;
+    //     }));
+    // }
+    //
+    // const getBlob = async (uri: any) => {
+    //     const response = await fetch(uri);
+    //     return await response.blob();
+    // }
+    //
+    // const pickImage = async () => {
+    //     // No permissions request is necessary for launching the image library
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    //         aspect: [4, 3],
+    //         quality: 1,
+    //     });
+    //
+    //     if (!result.cancelled) {
+    //         console.log(result);
+    //
+    //         if (result.uri !== undefined) {
+    //             setImage(result.uri);
+    //         }
+    //     }
+    // };
+    //
+    // console.log(userData);
 
     return (
         <View style={styles.container}>

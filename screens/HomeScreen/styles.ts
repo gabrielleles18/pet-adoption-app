@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        marginVertical: 10
+        marginVertical: 20
     },
     menuIcons: {
         color: 'white'
@@ -29,13 +29,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 17,
         marginLeft: 10
-    },
-    line: {
-        flex: 1,
-        height: 1,
-        backgroundColor: 'red',
-        marginLeft: 34,
-        marginVertical: 16
     },
     logoff: {
         flexDirection: 'row'

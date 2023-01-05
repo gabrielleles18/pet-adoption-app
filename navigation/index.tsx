@@ -19,6 +19,7 @@ import HomeScreen from '../screens/HomeScreen';
 import PetScreen from '../screens/PetScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
+import NotificationScreen from '../screens/NotificationScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
@@ -77,6 +78,15 @@ function BottomTabNavigator() {
                     title: '',
                     headerShown: false,
                     tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
+                }}
+            />
+            <BottomTab.Screen
+                name="Notification"
+                component={NotificationScreen}
+                options={{
+                    title: '',
+                    headerTitle: 'Notification',
+                    tabBarIcon: ({color}) => <TabBarIcon name="bell" color={color}/>,
                 }}
             />
             <BottomTab.Screen
@@ -152,5 +162,5 @@ function TabBarIcon(props: {
     name: React.ComponentProps<typeof FontAwesome>['name'];
     color: string;
 }) {
-    return <FontAwesome size={30} style={{marginBottom: -3}} {...props} />;
+    return <FontAwesome size={25} style={{marginBottom: -3}} {...props} />;
 }

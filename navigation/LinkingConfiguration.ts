@@ -45,6 +45,11 @@ const linking: LinkingOptions<RootStackParamList> = {
                         screens: {
                             FavoriteScreen: 'favorite',
                         }
+                    },
+                    Notification: {
+                        screens: {
+                            NotificationScreen: 'notification',
+                        }
                     }
 
                 },
