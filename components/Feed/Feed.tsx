@@ -4,10 +4,10 @@ import {AntDesign} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import {Ionicons} from '@expo/vector-icons';
 import {Text} from '../Themed';
-import {Images as ImagesModel, Pet} from '../../src/models';
+import {Images as ImagesModel, Pet, Favorites as ModelFavorites} from '../../src/models';
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {DataStore} from "aws-amplify";
+import {Auth, DataStore} from "aws-amplify";
 import {S3Image} from "aws-amplify-react-native";
 
 interface FeedProps {
@@ -19,8 +19,7 @@ export default function Feed({data}: FeedProps) {
     const [imagen, setImagen] = useState('');
     const navigation = useNavigation();
     const {sex, breed, name} = data;
-
-    let imageUri = 'https://extra.globo.com/incoming/23064936-d88-0b2/w533h800/cachorro-estiloso-1.png';
+    const [userId, setUserId] = useState([]);
 
     const onPress = ({data}: any) => {
         navigation.navigate('Pet', {data});
@@ -35,9 +34,49 @@ export default function Feed({data}: FeedProps) {
                 setImagen(imagesData[0].imageUri);
             }
         }
-
         fetchData().then();
+
+        const fetchUser = async () => {
+            const userData = await Auth.currentAuthenticatedUser();
+            return userData.attributes.sub.toString();
+        }
+        fetchUser().then(setUserId);
+
+        const ifFavorite = async () => {
+            // @ts-ignore
+            const favoriteData = await DataStore.query(ModelFavorites, (item) => item.and(item => [
+                    item.favoritesUserFavoriteId('eq', userId.toString()),
+                    item.favoritesPetId('eq', data.id.toString())
+                ]
+            ));
+            if (favoriteData.length > 0) {
+                setIsFavorite(true);
+            }
+        }
+        ifFavorite().then();
     }, []);
+
+    const setFavorite = (petId: string) => {
+        setIsFavorite(!isFavorite);
+
+        console.log(isFavorite);
+        if (!isFavorite) {
+            const saveFavorite = async () => {
+                const newFavorite = await DataStore.save(new ModelFavorites({
+                    favoritesPetId: petId.toString(),
+                    favoritesUserFavoriteId: userId.toString()
+                }));
+
+                // console.log(newFavorite);
+            }
+            saveFavorite().then();
+        } else if (isFavorite) {
+            const deleteFavorite = async () => {
+                await DataStore.delete(ModelFavorites, (item) => item.favoritesPetId('eq', petId.toString()));
+            };
+            // deleteFavorite().then();
+        }
+    };
 
     return (
         <FeedContainer onPress={() => onPress({data})}>
@@ -47,7 +86,7 @@ export default function Feed({data}: FeedProps) {
                     imgKey={imagen}
                     resizeMode='cover'
                 />
-                <Favorite onPress={() => setIsFavorite(!isFavorite)}>
+                <Favorite onPress={() => setFavorite(data.id)}>
                     <AntDesign
                         name={isFavorite ? 'heart' : 'hearto'}
                         size={17}

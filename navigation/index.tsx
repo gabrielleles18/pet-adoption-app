@@ -110,6 +110,15 @@ function BottomTabNavigator() {
                     tabBarIcon: ({color}) => <TabBarIcon name="heart" color={color}/>,
                 }}
             />
+            <BottomTab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                    title: '',
+                    headerTitle: 'Profile',
+                    tabBarIcon: ({color}) => <TabBarIcon name="user" color={color}/>,
+                }}
+            />
             {/*<BottomTab.Screen*/}
             {/*    name="TabOne"*/}
             {/*    component={TabOneScreen}*/}

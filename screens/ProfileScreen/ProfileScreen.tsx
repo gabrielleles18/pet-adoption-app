@@ -77,63 +77,63 @@ export default function ProfileScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.containerImage}>
-                {image ? (
-                    <Image source={{uri: image}} style={styles.image}/>
-                ) : userData?.image && (
-                    <S3Image imgKey={userData?.image}
-                             style={styles.image}
-                             resizeMode='cover'
-                    />
-                )}
-                <TouchableOpacity style={styles.containerIcon} onPress={pickImage}>
-                    <AntDesign name={`${image ? 'edit' : 'pluscircle'}`} size={20} color={Colors.light.primary}/>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.containerForm}>
-                <View style={styles.row}>
-                    <Text style={styles.label}>Name</Text>
-                    <TextInput
-                        keyboardType='default'
-                        value={name}
-                        onChangeText={name => setName(name)}
-                        style={styles.input}
-                    />
-                </View>
+            {/*<View style={styles.containerImage}>*/}
+            {/*    {image ? (*/}
+            {/*        <Image source={{uri: image}} style={styles.image}/>*/}
+            {/*    ) : userData?.image && (*/}
+            {/*        <S3Image imgKey={userData?.image}*/}
+            {/*                 style={styles.image}*/}
+            {/*                 resizeMode='cover'*/}
+            {/*        />*/}
+            {/*    )}*/}
+            {/*    <TouchableOpacity style={styles.containerIcon} onPress={pickImage}>*/}
+            {/*        <AntDesign name={`${image ? 'edit' : 'pluscircle'}`} size={20} color={Colors.light.primary}/>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
+            {/*<View style={styles.containerForm}>*/}
+            {/*    <View style={styles.row}>*/}
+            {/*        <Text style={styles.label}>Name</Text>*/}
+            {/*        <TextInput*/}
+            {/*            keyboardType='default'*/}
+            {/*            value={name}*/}
+            {/*            onChangeText={name => setName(name)}*/}
+            {/*            style={styles.input}*/}
+            {/*        />*/}
+            {/*    </View>*/}
 
-                <View style={styles.row}>
-                    <Text style={styles.label}>User name</Text>
-                    <TextInput
-                        keyboardType='default'
-                        editable={false}
-                        value={userName}
-                        onChangeText={value => setUserName(value)}
-                        style={styles.input}
-                    />
-                </View>
+            {/*    <View style={styles.row}>*/}
+            {/*        <Text style={styles.label}>User name</Text>*/}
+            {/*        <TextInput*/}
+            {/*            keyboardType='default'*/}
+            {/*            editable={false}*/}
+            {/*            value={userName}*/}
+            {/*            onChangeText={value => setUserName(value)}*/}
+            {/*            style={styles.input}*/}
+            {/*        />*/}
+            {/*    </View>*/}
 
-                <View style={styles.row}>
-                    <Text style={styles.label}>Email</Text>
-                    <TextInput
-                        editable={false}
-                        keyboardType='email-address'
-                        value={email}
-                        onChangeText={value => setEmail(value)}
-                        style={styles.input}
-                    />
-                </View>
+            {/*    <View style={styles.row}>*/}
+            {/*        <Text style={styles.label}>Email</Text>*/}
+            {/*        <TextInput*/}
+            {/*            editable={false}*/}
+            {/*            keyboardType='email-address'*/}
+            {/*            value={email}*/}
+            {/*            onChangeText={value => setEmail(value)}*/}
+            {/*            style={styles.input}*/}
+            {/*        />*/}
+            {/*    </View>*/}
 
-                <View style={styles.row}>
-                    <Text style={styles.label}>Telefone</Text>
-                    <TextInput
-                        keyboardType='default'
-                        value={telefone.toString()}
-                        onChangeText={value => setTelefone(value.toString())}
-                        style={styles.input}
-                    />
-                </View>
-                <ButtonIcon text='Save' onPress={updateUser}/>
-            </View>
+            {/*    <View style={styles.row}>*/}
+            {/*        <Text style={styles.label}>Telefone</Text>*/}
+            {/*        <TextInput*/}
+            {/*            keyboardType='default'*/}
+            {/*            value={telefone.toString() || ''}*/}
+            {/*            onChangeText={value => setTelefone(value.toString())}*/}
+            {/*            style={styles.input}*/}
+            {/*        />*/}
+            {/*    </View>*/}
+            {/*    <ButtonIcon text='Save' onPress={updateUser}/>*/}
+            {/*</View>*/}
         </View>
     );
 }
