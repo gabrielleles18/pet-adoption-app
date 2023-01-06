@@ -7,8 +7,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         backgroundColor: '#ffffff',
     },
-    containerImages:{
+    containerImages: {
         flexDirection: 'row',
+        paddingTop: 20,
     },
     containerImage: {
         width: 80,
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     containerForm: {
         flex: 1,
         marginTop: 20,
+        paddingBottom: 20,
     },
     row: {
         marginBottom: 15,
@@ -54,11 +56,11 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
     },
-    age:{
+    age: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-    picker:{
+    picker: {
         height: 42,
         width: '35%',
     }

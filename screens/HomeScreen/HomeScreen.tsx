@@ -34,7 +34,7 @@ export default function HomeScreen() {
         <View style={styles.father}>
             <View style={styles.menu}>
                 <View style={styles.itens}>
-                    <TouchableOpacity style={styles.row}>
+                    <TouchableOpacity style={styles.row} onPress={() => navigation.navigate('Adoption')}>
                         <MaterialIcons name="pets" size={24} color="black" style={styles.menuIcons}/>
                         <Text style={styles.menuTitle}>Adoption</Text>
                     </TouchableOpacity>

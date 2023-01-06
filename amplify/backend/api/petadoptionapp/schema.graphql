@@ -12,6 +12,8 @@ type Pet @model @auth(rules: [{allow: public}]) {
   AgeType: AgeType @hasOne
   city: Int
   stade: Int
+  status: Int
+  userIDAdoption: String
 }
 
 type Favorites @model @auth(rules: [{allow: public}]) {

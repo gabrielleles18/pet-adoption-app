@@ -81,7 +81,7 @@ function RegistrationScreen() {
                 const blob = await getBlob(image?.uri);
                 const {key} = await Storage.put(`${uuid.v4()}.png`, blob);
 
-                const newImage = await DataStore.save(new ImagesModel({
+                await DataStore.save(new ImagesModel({
                     imageUri: key.toString(),
                     petID: newPet?.id.toString(),
                 }));

@@ -40,6 +40,8 @@ type EagerPet = {
   readonly AgeType?: AgeType | null;
   readonly city?: number | null;
   readonly stade?: number | null;
+  readonly status?: number | null;
+  readonly userIDAdoption?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;
@@ -60,6 +62,8 @@ type LazyPet = {
   readonly AgeType: AsyncItem<AgeType | undefined>;
   readonly city?: number | null;
   readonly stade?: number | null;
+  readonly status?: number | null;
+  readonly userIDAdoption?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly petCategoryId?: string | null;

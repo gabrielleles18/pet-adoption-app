@@ -21,6 +21,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
+import AdoptionScreen from '../screens/AdoptionScreen';
 
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -48,6 +49,7 @@ function RootNavigator() {
             <Stack.Screen name="Pet" component={PetScreen} options={{headerShown: false}}/>
             <Stack.Screen name="NotFound" component={NotFoundScreen} options={{title: 'Oops!'}}/>
             <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Edit Profile'}}/>
+            <Stack.Screen name="Adoption" component={AdoptionScreen} options={{title: 'Adoption'}}/>
             {/*<Stack.Screen name="Favorite" component={FavoriteScreen} options={{title: 'Favorite'}}/>*/}
         </Stack.Navigator>
     );

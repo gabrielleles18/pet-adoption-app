@@ -86,7 +86,7 @@ export default function PetScreen() {
                         <Text style={styles.detailValue}>{breed}</Text>
                     </View>
                 </View>
-                <Profile userId={userID}/>
+                <Profile userId={userID} hiddenSocial/>
 
                 <View style={styles.aboutContainer}>
                     <Text style={styles.about}>About</Text>

@@ -1,6 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Amplify} from 'aws-amplify'
+// @ts-ignore
 import {withAuthenticator} from 'aws-amplify-react-native';
 
 Amplify.configure(awsExports);
