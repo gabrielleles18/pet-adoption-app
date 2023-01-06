@@ -1,6 +1,6 @@
 import styles from "./styles";
 import {View} from '../../components/Themed';
-import {FlatList, Image, Text, TouchableOpacity} from 'react-native';
+import {FlatList, Text, TouchableOpacity} from 'react-native';
 import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import Profile from "../../components/Profile";

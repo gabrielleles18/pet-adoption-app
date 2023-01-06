@@ -1,8 +1,8 @@
-import {SafeAreaView, TextInput, TouchableOpacity, View, Animated, Easing, Text, ScrollView} from "react-native";
+import {Animated, Easing, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "./styles";
-import {Feather, Ionicons} from '@expo/vector-icons';
+import {AntDesign, Feather, FontAwesome, Ionicons, MaterialIcons} from '@expo/vector-icons';
 import Profile from "../../components/Profile";
-import React, {useEffect, useState, useRef} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Auth} from "aws-amplify";
 import CategoryIdProvider from "../../contexts/categoryPet";
@@ -11,28 +11,24 @@ import PetList from "../../components/PetList";
 import SearchLocation from "../../components/SearchLocation";
 import Search from "../../components/Search";
 import {BorderlessButton} from "react-native-gesture-handler";
-import {getStatusBarHeight} from "react-native-iphone-x-helper";
-import {MaterialIcons} from '@expo/vector-icons';
-import {AntDesign} from '@expo/vector-icons';
-import {FontAwesome} from '@expo/vector-icons';
+import {GeneralContext} from "../../contexts/General";
 
 export default function HomeScreen() {
-    const [userId, setUserId] = useState<String>('');
     const navigation = useNavigation();
     const offsetValue = useRef(new Animated.Value(0)).current;
     const scaleValue = useRef(new Animated.Value(1)).current;
     const closeButtonOffset = useRef(new Animated.Value(0)).current;
     const [showMenu, setShowMenu] = useState(false);
+    // @ts-ignore
+    const {userId} = useContext(GeneralContext);
 
-    useEffect(() => {
-        //User
-        const fetchUser = async () => {
-            const userData = await Auth.currentAuthenticatedUser();
-            return userData.attributes.sub.toString();
+    const signOut = async () => {
+        try {
+            await Auth.signOut();
+        } catch (error) {
+            console.log('error signing out: ', error);
         }
-
-        fetchUser().then(setUserId);
-    }, []);
+    }
 
     return (
         <View style={styles.father}>
@@ -46,7 +42,8 @@ export default function HomeScreen() {
                         <AntDesign name="plussquare" size={24} color="black" style={styles.menuIcons}/>
                         <Text style={styles.menuTitle}>Add pet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={() => navigation.navigate('Profile', {userId: userId})}>
+                    <TouchableOpacity style={styles.row}
+                                      onPress={() => navigation.navigate('Profile', {userId: userId})}>
                         <FontAwesome name="user" size={24} color="black" style={styles.menuIcons}/>
                         <Text style={styles.menuTitle}>Profile</Text>
                     </TouchableOpacity>
@@ -57,7 +54,7 @@ export default function HomeScreen() {
                 </View>
                 <TouchableOpacity
                     style={styles.logoff}
-                    onPress={() => navigation.navigate('Singin')}
+                    onPress={signOut}
                 >
                     <Text style={[styles.menuTitle, {marginRight: 10}]}>Sign-out</Text>
                     <Feather

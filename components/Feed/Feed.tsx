@@ -1,14 +1,14 @@
-import {FeedContainer, ImageContainer, Favorite, Content, Category, styles} from './styles';
-import {Image, View} from "react-native";
-import {AntDesign} from "@expo/vector-icons";
+import {Category, Content, Favorite, FeedContainer, ImageContainer, styles} from './styles';
+import {View} from "react-native";
+import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
-import {Ionicons} from '@expo/vector-icons';
 import {Text} from '../Themed';
-import {Images as ImagesModel, Pet, Favorites as ModelFavorites} from '../../src/models';
-import React, {useEffect, useState} from "react";
+import {Favorites as ModelFavorites, Images as ImagesModel, Pet} from '../../src/models';
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {Auth, DataStore} from "aws-amplify";
+import {DataStore} from "aws-amplify";
 import {S3Image} from "aws-amplify-react-native";
+import {GeneralContext} from "../../contexts/General";
 
 interface FeedProps {
     data: Pet,
@@ -19,7 +19,8 @@ export default function Feed({data}: FeedProps) {
     const [imagen, setImagen] = useState('');
     const navigation = useNavigation();
     const {sex, breed, name} = data;
-    const [userId, setUserId] = useState([]);
+// @ts-ignore
+    const {userId} = useContext(GeneralContext);
 
     const onPress = ({data}: any) => {
         navigation.navigate('Pet', {data});
@@ -36,16 +37,10 @@ export default function Feed({data}: FeedProps) {
         }
         fetchData().then();
 
-        const fetchUser = async () => {
-            const userData = await Auth.currentAuthenticatedUser();
-            return userData.attributes.sub.toString();
-        }
-        fetchUser().then(setUserId);
-
         const ifFavorite = async () => {
             // @ts-ignore
             const favoriteData = await DataStore.query(ModelFavorites, (item) => item.and(item => [
-                    item.favoritesUserFavoriteId('eq', userId.toString()),
+                    item.favoritesUserFavoriteId('eq', userId),
                     item.favoritesPetId('eq', data.id.toString())
                 ]
             ));
@@ -59,12 +54,11 @@ export default function Feed({data}: FeedProps) {
     const setFavorite = (petId: string) => {
         setIsFavorite(!isFavorite);
 
-        console.log(isFavorite);
         if (!isFavorite) {
             const saveFavorite = async () => {
                 const newFavorite = await DataStore.save(new ModelFavorites({
                     favoritesPetId: petId.toString(),
-                    favoritesUserFavoriteId: userId.toString()
+                    favoritesUserFavoriteId: userId
                 }));
 
                 // console.log(newFavorite);

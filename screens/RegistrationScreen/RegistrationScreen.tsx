@@ -1,19 +1,18 @@
 import styles from "./styles";
 import {View} from '../../components/Themed';
-import React, {useEffect, useState} from "react";
-import {SafeAreaView, Image, TouchableOpacity, TextInput, Text, ScrollView, FlatList} from "react-native";
+import React, {useContext, useEffect, useState} from "react";
+import {FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
 import {Picker} from '@react-native-picker/picker';
 import ButtonIcon from "../../components/ButtonIcon";
 import {DataStore} from "@aws-amplify/datastore";
-import {AgeType, Pet, Category as CategoryModel, Images as ImagesModel} from "../../src/models";
+import {AgeType, Category as CategoryModel, Images as ImagesModel, Pet} from "../../src/models";
 import * as ImagePicker from "expo-image-picker";
 import {Storage} from "@aws-amplify/storage"
 import uuid from 'react-native-uuid';
-import {withAuthenticator} from 'aws-amplify-react-native';
-import {Auth} from 'aws-amplify';
 import axios from "axios";
+import {GeneralContext} from "../../contexts/General";
 
 function RegistrationScreen() {
     const [name, setName] = useState('');
@@ -27,10 +26,13 @@ function RegistrationScreen() {
     const [categories, setCategories] = useState<Array<any> | []>([]);
     const [category, setCategory] = useState<String>('');
     const [images, setImages] = useState<any>([]);
-    const [estadosApi, setEstadosApi] = useState<Array<any> | []>([]);
     const [stade, setStade] = useState<Number>(0);
-    const [cityApi, setCityApi] =useState<Array<any> | []>([]);
+    const [cityApi, setCityApi] = useState<Array<any> | []>([]);
     const [city, setCity] = useState<Number>(0);
+    // @ts-ignore
+    const {userId} = useContext(GeneralContext);
+    // @ts-ignore
+    const {estadosApi} = useContext(GeneralContext);
 
     useEffect(() => {
         const fetchAges = async () => {
@@ -42,14 +44,6 @@ function RegistrationScreen() {
             return await DataStore.query(CategoryModel);
         }
         fetchCategory().then(setCategories);
-
-        /*ve*/
-        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-            .then(function (response) {
-                setEstadosApi(response.data);
-            }).catch(function (error) {
-            console.log(error);
-        });
     }, []);
 
     useEffect(() => {
@@ -67,11 +61,9 @@ function RegistrationScreen() {
     }
 
     const savePet = async () => {
-        const userData = await Auth.currentAuthenticatedUser();
-
         //Is saving, it's beutiful.
         const newPet = await DataStore.save(new Pet({
-            userID: userData.attributes.sub,
+            userID: userId,
             petCategoryId: category.toString(),
             petAgeTypeId: yearMonth.toString(),
             name,
@@ -289,7 +281,6 @@ function RegistrationScreen() {
                     </Picker>
                 </View>
 
-
                 <View style={styles.row}>
                     <Text style={styles.label}>About</Text>
                     <TextInput
@@ -306,4 +297,5 @@ function RegistrationScreen() {
         </ScrollView>
     );
 }
-export default withAuthenticator(RegistrationScreen);
+
+export default RegistrationScreen;

@@ -8,13 +8,15 @@ import axios from "axios/index";
 import {PetslistContext} from "../../contexts/Petslist";
 import {DataStore} from "@aws-amplify/datastore";
 import {CategoryIdContext} from "../../contexts/categoryPet";
+import {GeneralContext} from "../../contexts/General";
 
 export default function SearchLocation() {
     const [showFilter, setShowFilter] = useState<Boolean>(false);
-    const [estadosApi, setEstadosApi] = useState<Array<any> | []>([]);
     const [stade, setStade] = useState<Number>(0);
     const [cityApi, setCityApi] = useState<Array<any> | []>([]);
     const [city, setCity] = useState<Number>(0);
+    // @ts-ignore
+    const {estadosApi} = useContext(GeneralContext);
 
     // @ts-ignore
     const {petslist, setPetslist} = useContext(PetslistContext);
@@ -30,15 +32,6 @@ export default function SearchLocation() {
         });
     }, [stade]);
 
-    useEffect(() => {
-        axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome`)
-            .then(function (response) {
-                setEstadosApi(response.data);
-            }).catch(function (error) {
-            console.log(error);
-        });
-    }, []);
-
     const resetFilter = async () => {
         const pets = await DataStore.query(Pet);
         setPetslist(pets);
@@ -50,7 +43,7 @@ export default function SearchLocation() {
                 if (city !== 0 && categoryId !== '') {
                     // @ts-ignore
                     return await DataStore.query(Pet, (item) => item.and(item => [
-                            item.petCategoryId('eq',categoryId),
+                            item.petCategoryId('eq', categoryId),
                             item.city('eq', city)
                         ]
                     ));
