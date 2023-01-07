@@ -8,11 +8,18 @@ import {User} from "../../src/models";
 interface ProfileProps {
     hiddenSocial?: boolean;
     hiddenName?: boolean;
+    hiddenImage?: boolean;
     userId: string;
     onPress?: () => void;
 }
 
-export default function Profile({userId, hiddenSocial = false, hiddenName = false, onPress}: ProfileProps) {
+export default function Profile({
+                                    userId,
+                                    hiddenSocial = false,
+                                    hiddenName = false,
+                                    hiddenImage = false,
+                                    onPress
+                                }: ProfileProps) {
     const [name, setName] = useState<String>('');
 
     useEffect(() => {
@@ -29,22 +36,26 @@ export default function Profile({userId, hiddenSocial = false, hiddenName = fals
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={onPress}>
-                <Image
-                    source={{uri: 'https://learn.microsoft.com/answers/storage/attachments/209536-360-f-364211147-1qglvxv1tcq0ohz3fawufrtonzz8nq3e.jpg'}}
-                    style={styles.image}/>
-            </TouchableOpacity>
-            {!hiddenName && (
-                <View style={styles.info}>
-                    <Text style={styles.owner}>Owner by:</Text>
-                    <Text style={styles.name}>{name}</Text>
-                </View>
-            )}
+                {!hiddenImage && (
+                    <Image
+                        source={{uri: 'https://learn.microsoft.com/answers/storage/attachments/209536-360-f-364211147-1qglvxv1tcq0ohz3fawufrtonzz8nq3e.jpg'}}
+                        style={styles.image}/>
+                )}
 
-            {!hiddenSocial && (
-                <TouchableOpacity style={styles.social}>
-                    <Fontisto name="whatsapp" size={16} color="#6852A5"/>
-                </TouchableOpacity>
-            )}
+                {!hiddenName && (
+                    <View style={styles.info}>
+                        <Text style={styles.owner}>Owner by:</Text>
+                        <Text style={styles.name}>{name}</Text>
+                    </View>
+                )}
+
+                {!hiddenSocial && (
+                    <TouchableOpacity style={styles.social}>
+                        <Fontisto name="whatsapp" size={16} color="#6852A5"/>
+                    </TouchableOpacity>
+                )}
+            </TouchableOpacity>
+
         </View>
     );
 }

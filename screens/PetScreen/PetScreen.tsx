@@ -6,10 +6,12 @@ import Colors from "../../constants/Colors";
 import Profile from "../../components/Profile";
 import ButtonIcon from "../../components/ButtonIcon";
 import {useNavigation, useRoute} from "@react-navigation/native";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {DataStore} from "aws-amplify";
-import {Images as ImagesModel} from "../../src/models";
+import {Images as ImagesModel, Pet as PetModel} from "../../src/models";
 import {S3Image} from "aws-amplify-react-native";
+import {getStatusBarHeight} from "react-native-iphone-x-helper";
+import {GeneralContext} from "../../contexts/General";
 
 export default function PetScreen() {
     let favorite = false;
@@ -17,6 +19,8 @@ export default function PetScreen() {
     const {id, userID, name, breed, age, weight, sex, address, abount, images} = route?.params?.data;
     const navigation = useNavigation();
     const [imagens, setImagens] = useState<Array<any>>([]);
+    // @ts-ignore
+    const {userId} = useContext(GeneralContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,8 +33,25 @@ export default function PetScreen() {
         fetchData().then();
     }, []);
 
+    const handlerAdoption = () => {
+        //status
+        // 0 - disponivel
+        // 1 - adotado
+        // 2 - em processo de adoção
+
+        const petUpdated = async () => {
+            const petData = route?.params?.data;
+            await DataStore.save(PetModel.copyOf(petData, updatedPetModel => {
+                updatedPetModel.userIDAdoption = userId;
+                updatedPetModel.status = 2
+            }));
+        }
+        petUpdated().then();
+        navigation.navigate('Adoption');
+    }
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, !images ? {paddingTop: getStatusBarHeight() + 10} : {}]}>
             <View style={styles.imageContainer}>
                 <View style={styles.header}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -92,7 +113,7 @@ export default function PetScreen() {
                     <Text style={styles.about}>About</Text>
                     <Text style={styles.abstract}>{abount}</Text>
                 </View>
-                <ButtonIcon text='Adopt' materialIcon='pets'/>
+                <ButtonIcon text='Adopt' materialIcon='pets' onPress={handlerAdoption}/>
             </View>
         </View>
     );
