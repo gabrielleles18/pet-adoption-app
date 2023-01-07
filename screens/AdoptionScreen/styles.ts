@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     processo: {
         paddingBottom: 10,
     },
-    pet:{
+    pet: {
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -35,6 +35,37 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '400'
     },
+    modal: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 15,
+        position: 'relative',
+    },
+    close: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
+        zIndex: 99,
+    },
+    status: {
+        fontWeight: '500',
+        fontSize: 16,
+    },
+    msn: {
+        fontWeight: '400',
+        fontSize: 14,
+        color: 'green'
+    },
+    alert:{
+        fontWeight: '400',
+        fontSize: 10,
+        marginTop: 10,
+    },
+    text:{
+        fontWeight: '500',
+        fontSize: 14,
+        marginVertical: 10,
+    }
 });
 
 export default styles;
