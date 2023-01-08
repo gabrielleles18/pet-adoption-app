@@ -1,11 +1,12 @@
 import styles from "./styles";
 import {View} from '../../components/Themed';
 import React, {useContext, useEffect, useState} from "react";
-import {Image, Text, TouchableOpacity} from "react-native";
+import {Text, TouchableOpacity} from "react-native";
 import {DataStore} from "@aws-amplify/datastore";
-import {Favorites as ModelFavorites, Images as ImagesModel, Pet as PetModel, Pet} from "../../src/models";
+import {Images as ImagesModel, Pet as PetModel, Pet} from "../../src/models";
 import {GeneralContext} from "../../contexts/General";
 import Profile from "../../components/Profile";
+// @ts-ignore
 import {S3Image} from "aws-amplify-react-native";
 import Modal from "react-native-modal";
 import {AntDesign} from '@expo/vector-icons';
@@ -15,15 +16,14 @@ import ButtonIcon from "../../components/ButtonIcon";
 // 0 - disponivel
 // 1 - adotado
 // 2 - em processo de adoção
-
 export default function AdoptionScreen() {
-    const [petsProcesso, setPetsProcesso] = useState([]);
-    const [petsMeusPetAdocao, setPetsMeusPetAdocao] = useState([]);
+    const [petsProcesso, setPetsProcesso] = useState<any | []>([]);
+    const [petsMeusPetAdocao, setPetsMeusPetAdocao] = useState<any | []>([]);
     // @ts-ignore
     const {userId} = useContext(GeneralContext);
     const [imagen, setImagen] = useState('');
 
-    const [modalVisible, setModalVisible] = useState<Array<any> | []>([]);
+    const [modalVisible, setModalVisible] = useState<Array<any> | []>();
     const [modalVisible2, setModalVisible2] = useState<Array<any> | []>([]);
 
     useEffect(() => {
@@ -55,7 +55,6 @@ export default function AdoptionScreen() {
         // 0 - disponivel
         // 1 - adotado
         // 2 - em processo de adoção
-
         const petUpdated = async () => {
             await DataStore.save(PetModel.copyOf(petItem, updatedPetModel => {
                 updatedPetModel.status = 1
@@ -78,7 +77,8 @@ export default function AdoptionScreen() {
                             limit: 1
                         });
                         if (imagesData.length > 0) {
-                            setImagen(imagesData[0].imageUri);
+                            const imageUri = imagesData[0].imageUri ?? '';
+                            setImagen(imageUri);
                         }
                     }
                     fetchData().then();
@@ -106,7 +106,7 @@ export default function AdoptionScreen() {
                             </View>
                             <Profile userId={item.userId} hiddenSocial/>
 
-                            <Modal style={{flex: 1}} isVisible={modalVisible[index]} hasBackdrop>
+                            <Modal style={{flex: 1}} isVisible={modalVisible[index] ?? false} hasBackdrop>
                                 <View style={styles.modal}>
                                     <TouchableOpacity onPress={() => {
                                         let newModalVisible = [...modalVisible];
@@ -142,7 +142,8 @@ export default function AdoptionScreen() {
                             limit: 1
                         });
                         if (imagesData.length > 0) {
-                            setImagen(imagesData[0].imageUri);
+                            const imageUri = imagesData[0].imageUri ?? '';
+                            setImagen(imageUri);
                         }
                     }
                     fetchData().then();

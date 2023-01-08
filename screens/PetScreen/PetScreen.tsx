@@ -9,6 +9,7 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import React, {useContext, useEffect, useState} from "react";
 import {DataStore} from "aws-amplify";
 import {Images as ImagesModel, Pet as PetModel} from "../../src/models";
+// @ts-ignore
 import {S3Image} from "aws-amplify-react-native";
 import {getStatusBarHeight} from "react-native-iphone-x-helper";
 import {GeneralContext} from "../../contexts/General";

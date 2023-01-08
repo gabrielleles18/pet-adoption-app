@@ -1,9 +1,10 @@
 import {styles} from './styles';
-import {Image, Text, View, TouchableOpacity, Linking} from "react-native";
+import {Linking, Text, TouchableOpacity, View} from "react-native";
 import {Fontisto} from '@expo/vector-icons';
-import {Auth, DataStore} from "aws-amplify";
+import {DataStore} from "aws-amplify";
 import React, {useEffect, useState} from "react";
 import {User} from "../../src/models";
+// @ts-ignore
 import {S3Image} from "aws-amplify-react-native";
 
 interface ProfileProps {
@@ -24,21 +25,22 @@ export default function Profile({
     const [name, setName] = useState<String>('');
     const [telefone, setTelefone] = useState<String>('');
     const [imagem, setImagem] = useState<String>('');
+
     useEffect(() => {
         const fetchUsers = async () => {
             const userDatas = await DataStore.query(User,
                 usersItem => usersItem.id('eq', userId), {
                     limit: 1
                 });
-            setName(userDatas[0]?.name);
-            setTelefone(userDatas[0]?.phone);
-            setImagem(userDatas[0]?.image);
+            setName(userDatas[0]?.name ?? '');
+            setTelefone(userDatas[0]?.phone ?? '');
+            setImagem(userDatas[0]?.image ?? '');
         }
         fetchUsers().then();
     }, []);
 
     const whatsapp = () => {
-        Linking.openURL(`whatsapp://send?phone=${telefone}`);
+        Linking.openURL(`whatsapp://send?phone=${telefone}`).then().catch(e => console.log(e));
     }
     return (
         <View style={styles.container}>

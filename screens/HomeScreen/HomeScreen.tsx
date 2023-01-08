@@ -2,7 +2,7 @@ import {Animated, Easing, ScrollView, Text, TouchableOpacity, View} from "react-
 import styles from "./styles";
 import {AntDesign, Feather, FontAwesome, Ionicons, MaterialIcons} from '@expo/vector-icons';
 import Profile from "../../components/Profile";
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Auth} from "aws-amplify";
 import CategoryIdProvider from "../../contexts/categoryPet";

@@ -1,7 +1,7 @@
 import styles from "./styles";
 import {View} from '../../components/Themed';
 import React, {useContext, useEffect, useState} from "react";
-import {FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, SafeAreaView} from "react-native";
+import {FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
 import {Picker} from '@react-native-picker/picker';
@@ -13,7 +13,6 @@ import {Storage} from "@aws-amplify/storage"
 import uuid from 'react-native-uuid';
 import axios from "axios";
 import {GeneralContext} from "../../contexts/General";
-import {SafeAreaContext} from "react-native-safe-area-context";
 
 function RegistrationScreen() {
     const [name, setName] = useState('');

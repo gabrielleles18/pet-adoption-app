@@ -10,6 +10,7 @@ import Colors from "../../constants/Colors";
 import * as ImagePicker from "expo-image-picker";
 import {Storage} from "@aws-amplify/storage";
 import uuid from "react-native-uuid";
+// @ts-ignore
 import {S3Image} from "aws-amplify-react-native";
 import {GeneralContext} from "../../contexts/General";
 
@@ -19,7 +20,7 @@ export default function ProfileScreen() {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [userData, setUserData] = useState<UserModel[]>([]);
+    const [userData, setUserData] = useState<UserModel | []>([]);
     const [image, setImage] = useState<any>('');
     // @ts-ignore
     const {userId} = useContext(GeneralContext);
@@ -31,10 +32,10 @@ export default function ProfileScreen() {
         }
         fetchUser().then((data) => {
             setUserData(data);
-            setName(data?.name);
-            setUserName(data?.userName);
-            setEmail(data?.email);
-            setTelefone(data?.phone);
+            setName(data?.name ?? '');
+            setUserName(data?.userName ?? '');
+            setEmail(data?.email ?? '');
+            setTelefone(data?.phone ?? '');
         });
     }, []);
     const updateUser = async () => {

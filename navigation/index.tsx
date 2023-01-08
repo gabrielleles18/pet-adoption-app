@@ -14,7 +14,6 @@ import {AntDesign} from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
 import HomeScreen from '../screens/HomeScreen';
 import PetScreen from '../screens/PetScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -131,28 +130,6 @@ function BottomTabNavigator() {
                     tabBarIcon: ({color}) => <TabBarIcon name="user" color={color}/>,
                 }}
             />
-            {/*<BottomTab.Screen*/}
-            {/*    name="TabOne"*/}
-            {/*    component={TabOneScreen}*/}
-            {/*    options={({navigation}: RootTabScreenProps<'TabOne'>) => ({*/}
-            {/*        title: '',*/}
-            {/*        tabBarIcon: ({color}) => <TabBarIcon name="code" color={color}/>,*/}
-            {/*        headerRight: () => (*/}
-            {/*            <Pressable*/}
-            {/*                onPress={() => navigation.navigate('Modal')}*/}
-            {/*                style={({pressed}) => ({*/}
-            {/*                    opacity: pressed ? 0.5 : 1,*/}
-            {/*                })}>*/}
-            {/*                <FontAwesome*/}
-            {/*                    name="info-circle"*/}
-            {/*                    size={25}*/}
-            {/*                    color={Colors[colorScheme].text}*/}
-            {/*                    style={{marginRight: 15}}*/}
-            {/*                />*/}
-            {/*            </Pressable>*/}
-            {/*        ),*/}
-            {/*    })}*/}
-            {/*/>*/}
         </BottomTab.Navigator>
     );
 }

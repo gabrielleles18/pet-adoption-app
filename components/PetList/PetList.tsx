@@ -3,7 +3,7 @@ import {FlatList, Text, View} from "react-native";
 import Category from "../Category";
 import {useContext, useEffect, useState} from "react";
 import {DataStore} from "@aws-amplify/datastore";
-import {Category as CategoryModel, Pet} from "../../src/models";
+import {Category as CategoryModel} from "../../src/models";
 import {PetslistContext} from "../../contexts/Petslist";
 
 export default function PetList() {

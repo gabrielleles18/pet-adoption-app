@@ -7,6 +7,7 @@ import {Favorites as ModelFavorites, Images as ImagesModel, Pet} from '../../src
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {DataStore} from "aws-amplify";
+// @ts-ignore
 import {S3Image} from "aws-amplify-react-native";
 import {GeneralContext} from "../../contexts/General";
 
@@ -32,7 +33,7 @@ export default function Feed({data}: FeedProps) {
                 limit: 1
             });
             if (imagesData.length > 0) {
-                setImagen(imagesData[0].imageUri);
+                setImagen(imagesData[0].imageUri ?? '');
             }
         }
         fetchData().then();

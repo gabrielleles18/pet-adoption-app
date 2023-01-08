@@ -1,7 +1,7 @@
 import {styles} from './styles';
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {AntDesign, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
-import React, {useEffect, useState, useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Picker} from "@react-native-picker/picker";
 import {Category as CategoryModel, Pet} from "../../src/models";
 import axios from "axios/index";
@@ -12,9 +12,9 @@ import {GeneralContext} from "../../contexts/General";
 
 export default function SearchLocation() {
     const [showFilter, setShowFilter] = useState<Boolean>(false);
-    const [stade, setStade] = useState<Number>(0);
+    const [stade, setStade] = useState<number>(0);
     const [cityApi, setCityApi] = useState<Array<any> | []>([]);
-    const [city, setCity] = useState<Number>(0);
+    const [city, setCity] = useState<number>(0);
     // @ts-ignore
     const {estadosApi} = useContext(GeneralContext);
 
@@ -48,7 +48,7 @@ export default function SearchLocation() {
                         ]
                     ));
                 } else if (city !== 0) {
-                    return await DataStore.query(Pet, item => item.city('eq', parseInt(city)), {
+                    return await DataStore.query(Pet, item => item.city('eq', city), {
                         limit: 10
                     });
                 }
@@ -105,7 +105,7 @@ export default function SearchLocation() {
                         <Text style={styles.label}>City</Text>
                         <Picker
                             selectedValue={city}
-                            onValueChange={(itemValue, itemIndex) =>
+                            onValueChange={(itemValue: number, itemIndex) =>
                                 setCity(itemValue)
                             }
                             style={[styles.picker, {

@@ -3,7 +3,6 @@ import React, {useContext, useEffect, useState} from "react";
 import Feed from "../../components/Feed";
 import {DataStore} from "@aws-amplify/datastore";
 import {EagerPet, Favorites, Pet} from "../../src/models";
-import {Auth} from "aws-amplify";
 import {GeneralContext} from "../../contexts/General";
 import styles from "./styles";
 

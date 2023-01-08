@@ -2,7 +2,7 @@ import React, {createContext, useState} from "react";
 
 export const CategoryIdContext = createContext({});
 
-function CategoryIdProvider({children}) {
+function CategoryIdProvider({children}: any) {
     const [categoryId, setCategoryId] = useState('');
 
     return (
